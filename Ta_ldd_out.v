@@ -20,7 +20,45 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Ta_ldd_out(
-
+module Ta_ldd_out
+#(
+parameter TOP0_0 = 3 
+)(
+input                   clk200        ,
+input                   rst           ,
+input                   cap_mode      ,
+input    [TOP0_0-1:0]   cap_wdis      ,
+input    [TOP0_0-1:0]   com_wdis      ,
+output   [TOP0_0-1:0]   LDD0_WP       ,
+output   [TOP0_0-1:0]   LDD0_WN
     );
+
+reg[TOP0_0-1:0] ldd_wdis_n=0;
+always@(posedge clk200)begin
+	if(rst)begin
+		ldd_wdis_n <= ~0;
+	end else begin
+		if(cap_mode)begin
+			ldd_wdis_n <= !cap_wdis;
+		end else begin
+			ldd_wdis_n <= !com_wdis;
+		end
+	end
+end
+
+genvar gen_ii;
+generate
+    for (gen_ii=0; gen_ii < TOP0_0; gen_ii=gen_ii+1)
+    begin: WDIS_DS_n
+    	OBUFDS #(
+			.IOSTANDARD("DEFAULT"), // Specify the output I/O standard
+			.SLEW("SLOW")           // Specify the output slew rate
+			) OBUFDS_inst (
+			.O (LDD0_WP   [gen_ii]   ),  // Diff_p output (connect directly to top-level port)
+			.OB(LDD0_WN   [gen_ii]   ),  // Diff_n output (connect directly to top-level port)
+			.I (ldd_wdis_n[gen_ii]   )   // Buffer input
+			);
+    end
+endgenerate
+
 endmodule
