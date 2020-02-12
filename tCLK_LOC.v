@@ -65,6 +65,7 @@ parameter TOP0_0	= 3    ,
 	        AGP0_35	= 16
 )(
 output                    clk125             ,
+output                    clk200             ,
 output                    rst                ,
 output                    ADC0_CSN           ,
 output                    ADC0_SCK           ,
@@ -141,6 +142,7 @@ Tc_clk_ins0
 .clki   (FCLK_CLK0_0     ),
 .rsti   (FCLK_RESET0_N_0 ),
 .clk125 (clk125          ),
+.clk200 (clk200          ),
 .rsto   (rst             )
     );
 

@@ -3,9 +3,9 @@
 // Company:
 // Engineer:
 //
-// Create Date: 2020/02/12 11:45:07
+// Create Date: 2020/02/12 16:09:27
 // Design Name:
-// Module Name: tCLK_L2A
+// Module Name: Tla_single
 // Project Name:
 // Target Devices:
 // Tool Versions:
@@ -20,7 +20,7 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module tCLK_L2A
+module Tla_single
 #(
 parameter TOP0_0  = 3         ,
           TOP0_1  = 7         ,
@@ -44,12 +44,9 @@ input     [TOP0_0-1:0]   Gc_com_wdis      ,
 input     [LDD0_0-1:0]   Gc_com_plus      ,
 input                    Gc_com_open      ,
 input                    Gc_com_close     ,
-output    [ADC0_1-1:0]   Gc_merge_data    ,
-output                   Gc_mereg_datv    ,
-input                    Gc_mereg_datr    ,
+output    [TOP0_0-1:0]   Gc_wdis          ,
 input                    Gc_cap_trig      ,
 output                   Gc_capr_rdy      ,
-output    [TOP0_0-1:0]   Gc_wdis          ,
 input                    Ga_clk250        ,
 input                    Ga_adc_of        ,
 input     [ADC0_0-1:0]   Ga_adc_data      ,
@@ -62,40 +59,36 @@ output    [LDD0_0-1:0]   Ga_com_plus      ,
 output                   Ga_com_open      ,
 output                   Ga_com_close     ,
 input     [TOP0_0-1:0]   Ga_wdis          ,
-input                    Ga_clk62         ,
-input     [ADC0_1-1:0]   Ga_merge_data    ,
-input                    Ga_mereg_datv    ,
 input                    Ga_clk50         ,
 output                   Ga_cap_trig      ,
-input                    Ga_capr_rdy      ,
-input                    Ga_mem_reset
+input                    Ga_capr_rdy
     );
 
-Tla_burst
+Tla_single_250
 #(
-.TOP0_0 (TOP0_0),
-.TOP0_1 (TOP0_1),
-.TOP0_2 (TOP0_2),
-.TOP0_3 (TOP0_3),
-.TOP0_4 (TOP0_4),
-.ADC0_0 (ADC0_0),
-.ADC0_1 (ADC0_1)
+.TOP0_0 (TOP0_0 ),
+.TOP0_1 (TOP0_1 ),
+.TOP0_2 (TOP0_2 ),
+.TOP0_3 (TOP0_3 ),
+.TOP0_4 (TOP0_4 ),
+.ADC0_0 (ADC0_0 ),
+.ADC0_1 (ADC0_1 ),
+.LDD0_0 (LDD0_0 ),
+.CAP0_0 (CAP0_0 ),
+.CAP0_1 (CAP0_1 )
 )
-Tla_burst_ins0
+Tla_single_250_ins0
 (
 .Gc_clk125        (Gc_clk125        ),
 .Gc_rst           (Gc_rst           ),
-.Gc_merge_data    (Gc_merge_data    ),
-.Gc_merge_datv    (Gc_merge_datv    ),
-.Gc_merge_datr    (Gc_merge_datr    ),
-.Ga_clk62         (Ga_clk62         ),
-.Ga_merge_data    (Ga_merge_data    ),
-.Ga_merge_datv    (Ga_merge_datv    ),
-.Ga_clk50         (Ga_clk50         ),
-.Ga_mem_reset     (Ga_mem_reset     )
+.Gc_adc_of        (Gc_adc_of        ),
+.Gc_adc_data      (Gc_adc_data      ),
+.Ga_clk250        (Ga_clk250        ),
+.Ga_adc_of        (Ga_adc_of        ),
+.Ga_adc_data      (Ga_adc_data      )
     );
 
-Tla_single
+Tla_single_200
 #(
 .TOP0_0 (TOP0_0),
 .TOP0_1 (TOP0_1),
@@ -108,12 +101,10 @@ Tla_single
 .CAP0_0 (CAP0_0),
 .CAP0_1 (CAP0_1)
 )
-Tla_single_ins0
+Tla_single_200_ins0
 (
 .Gc_clk125        (Gc_clk125        ),
 .Gc_rst           (Gc_rst           ),
-.Gc_adc_of        (Gc_adc_of        ),
-.Gc_adc_data      (Gc_adc_data      ),
 .Gc_cap_mode      (Gc_cap_mode      ),
 .Gc_cap_wdis      (Gc_cap_wdis      ),
 .Gc_cap_plus      (Gc_cap_plus      ),
@@ -122,11 +113,6 @@ Tla_single_ins0
 .Gc_com_open      (Gc_com_open      ),
 .Gc_com_close     (Gc_com_close     ),
 .Gc_wdis          (Gc_wdis          ),
-.Gc_cap_trig      (Gc_cap_trig      ),
-.Gc_capr_rdy      (Gc_capr_rdy      ),
-.Ga_clk250        (Ga_clk250        ),
-.Ga_adc_of        (Ga_adc_of        ),
-.Ga_adc_data      (Ga_adc_data      ),
 .Ga_clk200        (Ga_clk200        ),
 .Ga_cap_mode      (Ga_cap_mode      ),
 .Ga_cap_wdis      (Ga_cap_wdis      ),
@@ -135,7 +121,16 @@ Tla_single_ins0
 .Ga_com_plus      (Ga_com_plus      ),
 .Ga_com_open      (Ga_com_open      ),
 .Ga_com_close     (Ga_com_close     ),
-.Ga_wdis          (Ga_wdis          ),
+.Ga_wdis          (Ga_wdis          )
+    );
+
+Tla_single_50
+Tla_single_50_ins0
+(
+.Gc_clk125        (Gc_clk125        ),
+.Gc_rst           (Gc_rst           ),
+.Gc_cap_trig      (Gc_cap_trig      ),
+.Gc_capr_rdy      (Gc_capr_rdy      ),
 .Ga_clk50         (Ga_clk50         ),
 .Ga_cap_trig      (Ga_cap_trig      ),
 .Ga_capr_rdy      (Ga_capr_rdy      )

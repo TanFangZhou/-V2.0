@@ -164,6 +164,24 @@ inout                   FIXED_IO_ps_porb   ,
 inout                   FIXED_IO_ps_srstb
     );
 
+wire                Gc_clk200        ;
+wire                Gc_clk125        ;
+wire                Gc_rst           ;
+wire                Gc_adc_of        ;
+wire [ADC0_0-1:0]   Gc_adc_data      ;
+wire                Gc_cap_mode      ;
+wire [TOP0_0-1:0]   Gc_cap_wdis      ;
+wire [LDD0_0-1:0]   Gc_cap_plus      ;
+wire [TOP0_0-1:0]   Gc_com_wdis      ;
+wire [LDD0_0-1:0]   Gc_com_plus      ;
+wire                Gc_com_open      ;
+wire                Gc_com_close     ;
+wire [TOP0_0-1:0]   Gc_wdis          ;
+wire [ADC0_1-1:0]   Gc_merge_data    ;
+wire                Gc_mereg_datv    ;
+wire                Gc_mereg_datr    ;
+wire                Gc_cap_trig      ;
+wire                Gc_capr_rdy      ;
 wire [63:0]         GPIO_0_0_tri_io  ;
 wire                SPI0_MISO_I_0    ;
 wire                SPI0_MOSI_O_0    ;
@@ -219,8 +237,9 @@ tCLK_LOC
 )
 tCLK_LOC_ins0
 (
-.clk125               (clk125               ),
-.rst                  (rst                  ),
+.clk200               (Gc_clk200               ),
+.clk125               (Gc_clk125               ),
+.rst                  (Gc_rst                  ),
 .ADC0_CSN             (ADC0_CSN             ),
 .ADC0_SCK             (ADC0_SCK             ),
 .ADC0_SDI             (ADC0_SDI             ),
@@ -288,26 +307,27 @@ tCLK_LOC_ins0
 .FIXED_IO_ps_srstb    (FIXED_IO_ps_srstb    )
     );
 
-wire                adc_clki        ;
-wire                adc_rsti        ;
-wire                adc_clk250      ;
-wire                adc_adc_of      ;
-wire [ADC0_0-1:0]   adc_adc_data    ;
-wire                adc_clk200      ;
-wire                adc_cap_mode    ;
-wire [TOP0_0-1:0]   adc_cap_wdis    ;
-wire [LDD0_0-1:0]   adc_cap_plus    ;
-wire [TOP0_0-1:0]   adc_com_wdis    ;
-wire [LDD0_0-1:0]   adc_com_plus    ;
-wire                adc_com_open    ;
-wire                adc_com_close   ;
-wire                adc_clk62       ;
-wire [ADC0_1-1:0]   adc_merge_data  ;
-wire                adc_mereg_datv  ;
-wire                adc_clk50       ;
-wire                adc_cap_trig    ;
-wire                adc_capr_rdy    ;
-wire                adc_mem_reset   ;
+wire                Ga_clki        ;
+wire                Ga_rsti        ;
+wire                Ga_clk250      ;
+wire                Ga_adc_of      ;
+wire [ADC0_0-1:0]   Ga_adc_data    ;
+wire                Ga_clk200      ;
+wire                Ga_cap_mode    ;
+wire [TOP0_0-1:0]   Ga_cap_wdis    ;
+wire [LDD0_0-1:0]   Ga_cap_plus    ;
+wire [TOP0_0-1:0]   Ga_com_wdis    ;
+wire [LDD0_0-1:0]   Ga_com_plus    ;
+wire                Ga_com_open    ;
+wire                Ga_com_close   ;
+wire [TOP0_0-1:0]   Ga_wdis        ;
+wire                Ga_clk62       ;
+wire [ADC0_1-1:0]   Ga_merge_data  ;
+wire                Ga_mereg_datv  ;
+wire                Ga_clk50       ;
+wire                Ga_cap_trig    ;
+wire                Ga_capr_rdy    ;
+wire                Ga_mem_reset   ;
 tCLK_ADC
 #(
 .TOP0_1 (TOP0_1 ),
@@ -318,37 +338,89 @@ tCLK_ADC
 )
 tCLK_ADC_ins0
 (
-.clki         (adc_clki        ),
-.rsti         (adc_rsti        ),
+.clki         (Ga_clki        ),
+.rsti         (Ga_rsti        ),
 .ADC0_CLKP    (ADC0_CLKP       ),
 .ADC0_CLKN    (ADC0_CLKN       ),
 .ADC0_DAP     (ADC0_DAP        ),
 .ADC0_DAN     (ADC0_DAN        ),
 .ADC0_OFP     (ADC0_OFP        ),
 .ADC0_OFN     (ADC0_OFN        ),
-.clk250       (adc_clk250      ),
-.adc_of       (adc_adc_of      ),
-.adc_data     (adc_adc_data    ),
-.clk200       (adc_clk200      ),
-.cap_mode     (adc_cap_mode    ),
-.cap_wdis     (adc_cap_wdis    ),
-.cap_plus     (adc_cap_plus    ),
-.com_wdis     (adc_com_wdis    ),
-.com_plus     (adc_com_plus    ),
-.com_open     (adc_com_open    ),
-.com_close    (adc_com_close   ),
+.clk250       (Ga_clk250      ),
+.adc_of       (Ga_adc_of      ),
+.adc_data     (Ga_adc_data    ),
+.clk200       (Ga_clk200      ),
+.cap_mode     (Ga_cap_mode    ),
+.cap_wdis     (Ga_cap_wdis    ),
+.cap_plus     (Ga_cap_plus    ),
+.com_wdis     (Ga_com_wdis    ),
+.com_plus     (Ga_com_plus    ),
+.com_open     (Ga_com_open    ),
+.com_close    (Ga_com_close   ),
+.wdis_out     (Ga_wdis        ),
 .LDD0_WP      (LDD0_WP         ),
 .LDD0_WN      (LDD0_WN         ),
-.clk62        (adc_clk62       ),
-.merge_data   (adc_merge_data  ),
-.mereg_datv   (adc_mereg_datv  ),
-.clk50        (adc_clk50       ),
-.cap_trig     (adc_cap_trig    ),
-.capr_rdy     (adc_capr_rdy    ),
-.mem_reset    (adc_mem_reset   )
+.clk62        (Ga_clk62       ),
+.merge_data   (Ga_merge_data  ),
+.mereg_datv   (Ga_mereg_datv  ),
+.clk50        (Ga_clk50       ),
+.cap_trig     (Ga_cap_trig    ),
+.capr_rdy     (Ga_capr_rdy    ),
+.mem_reset    (Ga_mem_reset   )
     );
 
-tCLK_L2A();
+tCLK_L2A
+#(
+.TOP0_0(TOP0_0),
+.TOP0_1(TOP0_1),
+.TOP0_2(TOP0_2),
+.TOP0_3(TOP0_3),
+.TOP0_4(TOP0_4),
+.ADC0_0(ADC0_0),
+.ADC0_1(ADC0_1),
+.LDD0_0(LDD0_0),
+.CAP0_0(CAP0_0),
+.CAP0_1(CAP0_1)
+)
+tCLK_L2A_ins0
+(
+.Gc_clk125        (Gc_clk125        ),
+.Gc_rst           (Gc_rst           ),
+.Gc_adc_of        (Gc_adc_of        ),
+.Gc_adc_data      (Gc_adc_data      ),
+.Gc_cap_mode      (Gc_cap_mode      ),
+.Gc_cap_wdis      (Gc_cap_wdis      ),
+.Gc_cap_plus      (Gc_cap_plus      ),
+.Gc_com_wdis      (Gc_com_wdis      ),
+.Gc_com_plus      (Gc_com_plus      ),
+.Gc_com_open      (Gc_com_open      ),
+.Gc_com_close     (Gc_com_close     ),
+.Gc_merge_data    (Gc_merge_data    ),
+.Gc_mereg_datv    (Gc_mereg_datv    ),
+.Gc_mereg_datr    (Gc_mereg_datr    ),
+.Gc_cap_trig      (Gc_cap_trig      ),
+.Gc_capr_rdy      (Gc_capr_rdy      ),
+.Gc_wdis          (Gc_wdis          ),
+.Ga_clk250        (Ga_clk250        ),
+.Ga_adc_of        (Ga_adc_of        ),
+.Ga_adc_data      (Ga_adc_data      ),
+.Ga_clk200        (Ga_clk200        ),
+.Ga_cap_mode      (Ga_cap_mode      ),
+.Ga_cap_wdis      (Ga_cap_wdis      ),
+.Ga_cap_plus      (Ga_cap_plus      ),
+.Ga_com_wdis      (Ga_com_wdis      ),
+.Ga_com_plus      (Ga_com_plus      ),
+.Ga_com_open      (Ga_com_open      ),
+.Ga_com_close     (Ga_com_close     ),
+.Ga_wdis          (Ga_wdis          ),
+.Ga_clk62         (Ga_clk62         ),
+.Ga_merge_data    (Ga_merge_data    ),
+.Ga_mereg_datv    (Ga_mereg_datv    ),
+.Ga_clk50         (Ga_clk50         ),
+.Ga_cap_trig      (Ga_cap_trig      ),
+.Ga_capr_rdy      (Ga_capr_rdy      ),
+.Ga_mem_reset     (Ga_mem_reset     )
+    );
 
 tPS_EMIO
 #(
@@ -389,5 +461,8 @@ tPS_EMIO_ins0
 .OSW0_CS         (OSW0_CS         ),
 .OSW0_IO         (OSW0_IO         )
     );
+
+assign Ga_clki = Gc_clk200;
+assign Ga_rsti = Gc_rst   ;
 
 endmodule
