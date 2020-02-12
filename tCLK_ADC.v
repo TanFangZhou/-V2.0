@@ -1,22 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2020/02/09 11:45:27
-// Design Name: 
+// Design Name:
 // Module Name: tCLK_ADC
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,6 +48,8 @@ input    [TOP0_0-1:0]   com_wdis      ,
 input    [LDD0_0-1:0]   com_plus      ,
 input                   com_open      ,
 input                   com_close     ,
+output   [TOP0_0-1:0]   LDD0_WP       ,
+output   [TOP0_0-1:0]   LDD0_WN       ,
 output                  clk62         ,
 output   [ADC0_1-1:0]   merge_data    ,
 output                  mereg_datv    ,
