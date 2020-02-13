@@ -224,7 +224,7 @@ always@(posedge clk)begin
 		t_gp0_c35 <= 0;
 	end else if(add_c&wren)begin
 		case(addr_L)
-			1  :t_gp0_c1  <= ~t_gp0_c1;
+			1  :t_gp0_c1  <= 1   ;
 			2  :t_gp0_c2  <= data;
 			3  :t_gp0_c3  <= data;
 			4  :t_gp0_c4  <= data;
@@ -258,6 +258,8 @@ always@(posedge clk)begin
 			34 :t_gp0_c34 <= data;
 			35 :t_gp0_c35 <= data;
 		endcase
+	end else begin
+		t_gp0_c1  <= 0;
 	end
 end
 
@@ -278,9 +280,12 @@ always@(posedge clk)begin
 			0 :t_gp0_d0 <= data;
 			2 :t_gp0_d2 <= data;
 			3 :t_gp0_d3 <= data;
-			4 :t_gp0_d4 <= ~t_gp0_d4;
-			5 :t_gp0_d5 <= ~t_gp0_d5;
+			4 :t_gp0_d4 <= 1   ;
+			5 :t_gp0_d5 <= 1   ;
 		endcase
+	end else begin
+		t_gp0_d4 <= 0;
+		t_gp0_d5 <= 0;
 	end
 end
 
@@ -294,10 +299,12 @@ always@(posedge clk)begin
 		t_gp0_b6 <= 0;
 	end else if(add_b&wren)begin
 		case(addr_L)
-			1 :t_gp0_b1 <= data^t_gp0_b1;
+			1 :t_gp0_b1 <= data;
 			2 :t_gp0_b2 <= data;
 			6 :t_gp0_b6 <= data;
 		endcase
+	end else begin
+		t_gp0_b1 <= 0;
 	end
 end
 

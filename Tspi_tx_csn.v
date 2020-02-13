@@ -72,7 +72,7 @@ always@(posedge clk)begin
 			S_CSP :begin
 				if(del_csp_cnt_cmpt)begin
 					del_csp_cnt_en <= 0    ;
-					state          <= S_CSP;
+					state          <= S_CMP;
 				end
 			end
 			S_CMP :begin

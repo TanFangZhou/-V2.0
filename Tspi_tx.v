@@ -41,6 +41,10 @@ output                    SCLK        ,
 output                    MOSI
     );
 
+wire spi_CSN ;
+wire spi_SCLK;
+wire spi_MOSI;
+
 wire csn_en   ;
 wire csn_cmpt ;
 Tspi_tx_ctl
@@ -56,7 +60,7 @@ Tspi_tx_ctl_ins0
 .tx_valid    (tx_valid    ),
 .csn_en      (csn_en      ),
 .csn_cmpt    (csn_cmpt    ),
-.CSN         (CSN         )
+.CSN         (spi_CSN     )
     );
 
 wire txd_en   ;
@@ -77,8 +81,36 @@ Tspi_tx_csn_ins0
 .txd_cmpt    (txd_cmpt    )
     );
 
-Tspi_tx_txd(
-
+Tspi_tx_txd
+#(
+.SPI0_0  (SPI0_0  ),
+.SPI0_1  (SPI0_1  )
+)
+Tspi_tx_txd_ins0
+(
+.clk         (clk         ),
+.rst         (rst         ),
+.txd_en      (txd_en      ),
+.txd_cmpt    (txd_cmpt    ),
+.tx_dreq     (tx_dreq     ),
+.tx_valid    (tx_valid    ),
+.tx_data     (tx_data     ),
+.tx_div      (tx_div      ),
+.SCLK        (spi_SCLK    ),
+.MOSI        (spi_MOSI    )
     );
+
+reg t_CSN  =0;
+reg t_SCLK =0;
+reg t_MOSI =0;
+always@(posedge clk)begin
+	t_CSN  <= spi_CSN  ;
+	t_SCLK <= spi_SCLK ;
+	t_MOSI <= spi_MOSI ;
+end
+
+assign CSN  = t_CSN  ;
+assign SCLK = t_SCLK ;
+assign MOSI = t_MOSI ;
 
 endmodule
