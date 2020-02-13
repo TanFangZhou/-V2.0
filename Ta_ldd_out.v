@@ -1,34 +1,35 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2020/02/09 11:45:27
-// Design Name: 
+// Design Name:
 // Module Name: Ta_ldd_out
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
 module Ta_ldd_out
 #(
-parameter TOP0_0 = 3 
+parameter TOP0_0 = 3
 )(
 input                   clk200        ,
 input                   rst           ,
 input                   cap_mode      ,
 input    [TOP0_0-1:0]   cap_wdis      ,
 input    [TOP0_0-1:0]   com_wdis      ,
+output   [TOP0_0-1:0]   wdis_out      ,
 output   [TOP0_0-1:0]   LDD0_WP       ,
 output   [TOP0_0-1:0]   LDD0_WN
     );
@@ -46,6 +47,15 @@ always@(posedge clk200)begin
 	end
 end
 
+reg[TOP0_0-1:0] t_wdis_out=0;
+always@(posedge clk200)begin
+	if(rst)begin
+		t_wdis_out <= 0;
+	end else begin
+		t_wdis_out <= !ldd_wdis_n;
+	end
+end
+
 genvar gen_ii;
 generate
     for (gen_ii=0; gen_ii < TOP0_0; gen_ii=gen_ii+1)
@@ -60,5 +70,7 @@ generate
 			);
     end
 endgenerate
+
+assign wdis_out = t_wdis_out;
 
 endmodule

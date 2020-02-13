@@ -48,6 +48,7 @@ input    [TOP0_0-1:0]   com_wdis      ,
 input    [LDD0_0-1:0]   com_plus      ,
 input                   com_open      ,
 input                   com_close     ,
+output   [TOP0_0-1:0]   wdis_out      ,
 output   [TOP0_0-1:0]   LDD0_WP       ,
 output   [TOP0_0-1:0]   LDD0_WN       ,
 output                  clk62         ,
@@ -117,6 +118,7 @@ Ta_ldd_ins0
 .com_plus   (com_plus    ),
 .com_open   (com_open    ),
 .com_close  (com_close   ),
+.wdis_out   (wdis_out    ),
 .LDD0_WP    (LDD0_WP     ),
 .LDD0_WN    (LDD0_WN     )
     );

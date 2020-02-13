@@ -182,15 +182,15 @@ wire                Gc_mereg_datv    ;
 wire                Gc_mereg_datr    ;
 wire                Gc_cap_trig      ;
 wire                Gc_capr_rdy      ;
-wire [63:0]         GPIO_0_0_tri_io  ;
-wire                SPI0_MISO_I_0    ;
-wire                SPI0_MOSI_O_0    ;
-wire                SPI0_SCLK_O_0    ;
-wire                SPI0_SS1_O_0     ;
-wire                SPI0_SS2_O_0     ;
-wire                SPI0_SS_O_0      ;
-wire                UART_0_0_rxd     ;
-wire                UART_0_0_txd     ;
+wire [63:0]         Ps_GPIO_0_0_tri_io  ;
+wire                Ps_SPI0_MISO_I_0    ;
+wire                Ps_SPI0_MOSI_O_0    ;
+wire                Ps_SPI0_SCLK_O_0    ;
+wire                Ps_SPI0_SS1_O_0     ;
+wire                Ps_SPI0_SS2_O_0     ;
+wire                Ps_SPI0_SS_O_0      ;
+wire                Ps_UART_0_0_rxd     ;
+wire                Ps_UART_0_0_txd     ;
 tCLK_LOC
 #(
 .TOP0_0       (TOP0_0       ),
@@ -275,15 +275,15 @@ tCLK_LOC_ins0
 .TEC1_GOOD            (TEC1_GOOD            ),
 .LED0_L               (LED0_L               ),
 .OPM0_IO              (OPM0_IO              ),
-.GPIO_0_0_tri_io      (GPIO_0_0_tri_io      ),
-.SPI0_MISO_I_0        (SPI0_MISO_I_0        ),
-.SPI0_MOSI_O_0        (SPI0_MOSI_O_0        ),
-.SPI0_SCLK_O_0        (SPI0_SCLK_O_0        ),
-.SPI0_SS1_O_0         (SPI0_SS1_O_0         ),
-.SPI0_SS2_O_0         (SPI0_SS2_O_0         ),
-.SPI0_SS_O_0          (SPI0_SS_O_0          ),
-.UART_0_0_rxd         (UART_0_0_rxd         ),
-.UART_0_0_txd         (UART_0_0_txd         ),
+.GPIO_0_0_tri_io      (Ps_GPIO_0_0_tri_io      ),
+.SPI0_MISO_I_0        (Ps_SPI0_MISO_I_0        ),
+.SPI0_MOSI_O_0        (Ps_SPI0_MOSI_O_0        ),
+.SPI0_SCLK_O_0        (Ps_SPI0_SCLK_O_0        ),
+.SPI0_SS1_O_0         (Ps_SPI0_SS1_O_0         ),
+.SPI0_SS2_O_0         (Ps_SPI0_SS2_O_0         ),
+.SPI0_SS_O_0          (Ps_SPI0_SS_O_0          ),
+.UART_0_0_rxd         (Ps_UART_0_0_rxd         ),
+.UART_0_0_txd         (Ps_UART_0_0_txd         ),
 .DDR_addr             (DDR_addr             ),
 .DDR_ba               (DDR_ba               ),
 .DDR_cas_n            (DDR_cas_n            ),
@@ -432,15 +432,15 @@ tPS_EMIO
 )
 tPS_EMIO_ins0
 (
-.GPIO_0_0_tri_io (GPIO_0_0_tri_io ),
-.SPI0_MISO_I_0   (SPI0_MISO_I_0   ),
-.SPI0_MOSI_O_0   (SPI0_MOSI_O_0   ),
-.SPI0_SCLK_O_0   (SPI0_SCLK_O_0   ),
-.SPI0_SS1_O_0    (SPI0_SS1_O_0    ),
-.SPI0_SS2_O_0    (SPI0_SS2_O_0    ),
-.SPI0_SS_O_0     (SPI0_SS_O_0     ),
-.UART_0_0_rxd    (UART_0_0_rxd    ),
-.UART_0_0_txd    (UART_0_0_txd    ),
+.GPIO_0_0_tri_io (Ps_GPIO_0_0_tri_io ),
+.SPI0_MISO_I_0   (Ps_SPI0_MISO_I_0   ),
+.SPI0_MOSI_O_0   (Ps_SPI0_MOSI_O_0   ),
+.SPI0_SCLK_O_0   (Ps_SPI0_SCLK_O_0   ),
+.SPI0_SS1_O_0    (Ps_SPI0_SS1_O_0    ),
+.SPI0_SS2_O_0    (Ps_SPI0_SS2_O_0    ),
+.SPI0_SS_O_0     (Ps_SPI0_SS_O_0     ),
+.UART_0_0_rxd    (Ps_UART_0_0_rxd    ),
+.UART_0_0_txd    (Ps_UART_0_0_txd    ),
 .UART0_TX        (UART0_TX        ),
 .UART0_RX        (UART0_RX        ),
 .ADC1_CSN        (ADC1_CSN        ),
