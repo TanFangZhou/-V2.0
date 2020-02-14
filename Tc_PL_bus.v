@@ -65,15 +65,46 @@ output                    LPL0_SDI
 localparam SPI0_0  = AGP0_25 ,
            SPI0_1  = AGP0_27 ;
 
-Tc_PL_bus_ctl(
+wire                 tx_tx_trig      ;
+wire                 tx_tx_ting      ;
+wire                 tx_tx_cmpt      ;
+wire  [AGP0_25-1:0]  tx_tx_sel       ;
+wire                 tx_txb_req      ;
+wire  [AGP0_23-1:0]  tx_txb_data     ;
+wire                 tx_txb_empty    ;
+wire                 tx_spit_idle    ;
+wire                 tx_spit_dreq    ;
+wire                 tx_spit_valid   ;
+wire [SPI0_0-1:0]    tx_spit_data    ;
+Tc_PL_bus_tx
+#(
+.AGP0_23 (AGP0_23 ),
+.AGP0_25 (AGP0_25 ),
+.SPI0_0  (SPI0_0  )
+)
+Tc_PL_bus_tx_ins0
+(
+.clk           (clk          ),
+.rst           (rst          ),
+.tx_trig       (tx_tx_trig      ),
+.tx_ting       (tx_tx_ting      ),
+.tx_cmpt       (tx_tx_cmpt      ),
+.tx_sel        (tx_tx_sel       ),
+.txb_req       (tx_txb_req      ),
+.txb_data      (tx_txb_data     ),
+.txb_empty     (tx_txb_empty    ),
+.spit_idle     (tx_spit_idle    ),
+.spit_dreq     (tx_spit_dreq    ),
+.spit_valid    (tx_spit_valid   ),
+.spit_data     (tx_spit_data    )
     );
 
-wire                txb_req     ;
-wire [AGP0_23-1:0]  txb_data    ;
+wire                txbo_req    ;
+wire [AGP0_23-1:0]  txbo_data   ;
 wire                txb_full    ;
 wire                txb_empty   ;
-wire [AGP0_25-1:0]  rxb_data    ;
-wire                rxb_valid   ;
+wire [AGP0_25-1:0]  rxbi_data   ;
+wire                rxbi_valid  ;
 wire                rxb_full    ;
 wire                rxb_empty   ;
 Tc_PL_bus_buff
@@ -97,12 +128,12 @@ Tc_PL_bus_buff_ins0
 .gp0_b5          (gp0_b5            ),
 .gp0_b2w         (gp0_b2w           ),
 .gp0_b4r         (gp0_b4r           ),
-.txb_req         (txb_req           ),
-.txb_data        (txb_data          ),
+.txbo_req        (txbo_req          ),
+.txbo_data       (txbo_data         ),
 .txb_full        (txb_full          ),
 .txb_empty       (txb_empty         ),
-.rxb_data        (rxb_data          ),
-.rxb_valid       (rxb_valid         ),
+.rxbi_data       (rxbi_data         ),
+.rxbi_valid      (rxbi_valid        ),
 .rxb_full        (rxb_full          ),
 .rxb_empty       (rxb_empty         )
     );
@@ -140,11 +171,71 @@ Tc_PL_bus_spi_ins0
 .MISO        (spi_MISO        )
     );
 
-Tc_PL_bus_csn(
+Tc_PL_bus_state
+Tc_PL_bus_state_ins0
+(
+.clk         (clk         ),
+.rst         (rst         ),
+.tx_ting     (tx_tx_ting  ),
+.tx_cmpt     (tx_tx_cmpt  ),
+.tx_cmpt_clr (gp0_b0w     ),
+.txb_empty   (txb_empty   ),
+.txb_full    (txb_full    ),
+.rxb_empty   (rxb_empty   ),
+.rxb_full    (rxb_full    ),
+.state       (gp0_b0      )
     );
 
-assign spi_tx_div = gp0_b6       ;
-assign rxb_data   = spi_rx_data  ;
-assign rxb_valid  = spi_rx_valid ;
+wire csn_chip_sel;
+Tc_PL_bus_csn
+#(
+.AGP0_25(AGP0_25)
+)
+Tc_PL_bus_csn_ins0
+(
+.clk             (clk             ),
+.rst             (rst             ),
+.chip_sel        (chip_sel        ),
+.spi_CSN         (spi_CSN         ),
+.spi_SCLK        (spi_SCLK        ),
+.spi_MOSI        (spi_MOSI        ),
+.spi_MISO        (spi_MISO        ),
+.ADC0_CSN        (ADC0_CSN        ),
+.ADC0_SCK        (ADC0_SCK        ),
+.ADC0_SDI        (ADC0_SDI        ),
+.ADC0_SDO        (ADC0_SDO        ),
+.FDA0_SCK        (FDA0_SCK        ),
+.FDA0_CSN        (FDA0_CSN        ),
+.FDA0_SDI        (FDA0_SDI        ),
+.FDA0_SDO        (FDA0_SDO        ),
+.DAC0_SDI        (DAC0_SDI        ),
+.DAC0_SCK        (DAC0_SCK        ),
+.DAC0_CSN        (DAC0_CSN        ),
+.DAC1_SDI        (DAC1_SDI        ),
+.DAC1_SCK        (DAC1_SCK        ),
+.DAC1_CSN        (DAC1_CSN        ),
+.LPL0_CSN        (LPL0_CSN        ),
+.LPL0_SDO        (LPL0_SDO        ),
+.LPL0_SCK        (LPL0_SCK        ),
+.LPL0_SDI        (LPL0_SDI        )
+    );
+
+assign tx_tx_trig    = gp0_b1       ;
+
+assign txbo_req      = tx_txb_req   ;
+assign tx_txb_data   = txbo_data    ;
+assign tx_txb_empty  = txb_empty    ;
+
+assign spi_tx_div    = gp0_b6       ;
+
+assign rxbi_data     = spi_rx_data  ;
+assign rxbi_valid    = spi_rx_valid ;
+
+assign tx_spit_idle  = spi_tx_idle  ;
+assign tx_spit_dreq  = spi_tx_dreq  ;
+assign spi_tx_valid  = tx_spit_valid;
+assign spi_tx_data   = tx_spit_data ;
+
+assign csn_chip_sel  = tx_tx_sel    ;
 
 endmodule

@@ -193,12 +193,155 @@ output     [TOP0_2-1:0]   LED0_L             ,
 output     [TOP0_4-1:0]   OPM0_IO
     );
 
+wire bus_FDA0_SCK;
+wire bus_FDA0_CSN;
+wire bus_FDA0_SDI;
+wire bus_DAC0_SDI;
+wire bus_DAC0_SCK;
+wire bus_DAC0_CSN;
+Tc_PL_bus
+#(
+.AGP0_21(AGP0_21	),
+.AGP0_22(AGP0_22	),
+.AGP0_23(AGP0_23	),
+.AGP0_24(AGP0_24	),
+.AGP0_25(AGP0_25	),
+.AGP0_26(AGP0_26	),
+.AGP0_27(AGP0_27	)
+)
+Tc_PL_bus_ins0
+(
+.clk         (clk125          ),
+.rst         (rst             ),
+.gp0_b0      (gp0_b0          ),
+.gp0_b1      (gp0_b1          ),
+.gp0_b2      (gp0_b2          ),
+.gp0_b3      (gp0_b3          ),
+.gp0_b4      (gp0_b4          ),
+.gp0_b5      (gp0_b5          ),
+.gp0_b6      (gp0_b6          ),
+.gp0_b0w     (gp0_b0w         ),
+.gp0_b2w     (gp0_b2w         ),
+.gp0_b4r     (gp0_b4r         ),
+.ADC0_CSN    (ADC0_CSN        ),
+.ADC0_SCK    (ADC0_SCK        ),
+.ADC0_SDI    (ADC0_SDI        ),
+.ADC0_SDO    (ADC0_SDO        ),
+.FDA0_SCK    (bus_FDA0_SCK    ),
+.FDA0_CSN    (bus_FDA0_CSN    ),
+.FDA0_SDI    (bus_FDA0_SDI    ),
+.FDA0_SDO    (FDA0_SDO        ),
+.DAC0_SDI    (bus_DAC0_SDI    ),
+.DAC0_SCK    (bus_DAC0_SCK    ),
+.DAC0_CSN    (bus_DAC0_CSN    ),
+.DAC1_SDI    (DAC1_SDI        ),
+.DAC1_SCK    (DAC1_SCK        ),
+.DAC1_CSN    (DAC1_CSN        ),
+.LPL0_CSN    (LPL0_CSN        ),
+.LPL0_SDO    (LPL0_SDO        ),
+.LPL0_SCK    (LPL0_SCK        ),
+.LPL0_SDI    (LPL0_SDI        )
+    );
 
-Tc_PL_bus  ();
+
 Tc_PL_cap  ();
-Tc_PL_chips();
 
-
-
+wire                   chips_OPA0_10X1 ;
+wire                   chips_OPA0_10X2 ;
+wire                   chips_OPA0_OPX1 ;
+wire                   chips_OPA0_OPX2 ;
+Tc_PL_chips
+#(
+.TOP0_0    (TOP0_0    ),
+.TOP0_1    (TOP0_1    ),
+.TOP0_2    (TOP0_2    ),
+.TOP0_3    (TOP0_3    ),
+.TOP0_4    (TOP0_4    ),
+.ADC0_0    (ADC0_0    ),
+.ADC0_1    (ADC0_1    ),
+.LDD0_0    (LDD0_0    ),
+.CAP0_0    (CAP0_0    ),
+.CAP0_1    (CAP0_1    ),
+.AGP0_0    (AGP0_0    ),
+.AGP0_1    (AGP0_1    ),
+.AGP0_2    (AGP0_2    ),
+.AGP0_3    (AGP0_3    ),
+.AGP0_4    (AGP0_4    ),
+.AGP0_5    (AGP0_5    ),
+.AGP0_6    (AGP0_6    ),
+.AGP0_7    (AGP0_7    ),
+.AGP0_8    (AGP0_8    ),
+.AGP0_9    (AGP0_9    ),
+.AGP0_10   (AGP0_10   ),
+.AGP0_11   (AGP0_11   ),
+.AGP0_12   (AGP0_12   ),
+.AGP0_13   (AGP0_13   ),
+.AGP0_14   (AGP0_14   ),
+.AGP0_15   (AGP0_15   ),
+.AGP0_16   (AGP0_16   ),
+.AGP0_17   (AGP0_17   ),
+.AGP0_18   (AGP0_18   ),
+.AGP0_19   (AGP0_19   ),
+.AGP0_20   (AGP0_20   ),
+.AGP0_21   (AGP0_21   ),
+.AGP0_22   (AGP0_22   ),
+.AGP0_23   (AGP0_23   ),
+.AGP0_24   (AGP0_24   ),
+.AGP0_25   (AGP0_25   ),
+.AGP0_26   (AGP0_26   ),
+.AGP0_27   (AGP0_27   ),
+.AGP0_28   (AGP0_28   ),
+.AGP0_29   (AGP0_29   ),
+.AGP0_30   (AGP0_30   ),
+.AGP0_31   (AGP0_31   ),
+.AGP0_32   (AGP0_32   ),
+.AGP0_33   (AGP0_33   ),
+.AGP0_34   (AGP0_34   ),
+.AGP0_35   (AGP0_35   )
+)
+Tc_PL_chips_ins0
+(
+.clk125        (clk125        ),
+.rst           (rst           ),
+.Gc_adc_of     (Gc_adc_of     ),
+.Gc_adc_data   (Gc_adc_data   ),
+.Gc_com_wdis   (Gc_com_wdis   ),
+.Gc_com_plus   (Gc_com_plus   ),
+.Gc_com_open   (Gc_com_open   ),
+.Gc_com_close  (Gc_com_close  ),
+.Gc_wdis       (Gc_wdis       ),
+.gp0_d0        (gp0_d0        ),
+.gp0_d1        (gp0_d1        ),
+.gp0_d2        (gp0_d2        ),
+.gp0_d3        (gp0_d3        ),
+.gp0_d4        (gp0_d4        ),
+.gp0_d5        (gp0_d5        ),
+.gp0_r0        (gp0_r0        ),
+.gp0_r1        (gp0_r1        ),
+.gp0_r2        (gp0_r2        ),
+.gp0_r3        (gp0_r3        ),
+.gp0_r4        (gp0_r4        ),
+.gp0_r5        (gp0_r5        ),
+.gp0_r6        (gp0_r6        ),
+.gp0_r7        (gp0_r7        ),
+.gp0_r7w       (gp0_r7w       ),
+.LDD0_OUTEA    (LDD0_OUTEA    ),
+.LDD0_DISEA    (LDD0_DISEA    ),
+.LDD0_OSCEA    (LDD0_OSCEA    ),
+.LDD0_OLD2N    (LDD0_OLD2N    ),
+.LDD0_RDISN    (LDD0_RDISN    ),
+.OPA0_10X1     (chips_OPA0_10X1     ),
+.OPA0_10X2     (chips_OPA0_10X2     ),
+.OPA0_OPX1     (chips_OPA0_OPX1     ),
+.OPA0_OPX2     (chips_OPA0_OPX2     ),
+.APD0_EN       (APD0_EN       ),
+.LPL0_LOCK     (LPL0_LOCK     ),
+.LPL0_ERR      (LPL0_ERR      ),
+.LPL0_SYNC     (LPL0_SYNC     ),
+.TEC0_GOOD     (TEC0_GOOD     ),
+.TEC1_GOOD     (TEC1_GOOD     ),
+.LED0_L        (LED0_L        ),
+.OPM0_IO       (OPM0_IO       )
+    );
 
 endmodule

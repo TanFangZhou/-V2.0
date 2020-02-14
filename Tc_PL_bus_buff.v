@@ -39,12 +39,12 @@ output     [AGP0_25-1:0]  gp0_b4         ,
 output     [AGP0_26-1:0]  gp0_b5         ,
 input                     gp0_b2w        ,
 input                     gp0_b4r        ,
-input                     txb_req        ,
-output     [AGP0_23-1:0]  txb_data       ,
+input                     txbo_req       ,
+output     [AGP0_23-1:0]  txbo_data      ,
 output                    txb_full       ,
 output                    txb_empty      ,
-input      [AGP0_25-1:0]  rxb_data       ,
-input                     rxb_valid      ,
+input      [AGP0_25-1:0]  rxbi_data      ,
+input                     rxbi_valid     ,
 output                    rxb_full       ,
 output                    rxb_empty
     );
@@ -71,11 +71,11 @@ fifo_generator_1 spi_tx (
 );
 
 assign ff0_clk   = clk        ;
-assign ff0_srst  = gp0_b1[0]  ;
+assign ff0_srst  = gp0_b1[1]  ;
 assign ff0_din   = gp0_b2     ;
 assign ff0_wr_en = gp0_b2w    ;
-assign ff0_rd_en = txb_req    ;
-assign txb_data  = ff0_dout   ;
+assign ff0_rd_en = txbo_req   ;
+assign txbo_data = ff0_dout   ;
 assign txb_full  = ff0_full   ;
 assign txb_empty = ff0_empty  ;
 assign gp0_b3    = ff0_cnt    ;
@@ -102,9 +102,9 @@ fifo_generator_1 spi_rx (
 );
 
 assign ff1_clk   = clk          ;
-assign ff1_srst  = gp0_b1[1]    ;
-assign ff1_din   = rxb_data     ;
-assign ff1_wr_en = rxb_valid    ;
+assign ff1_srst  = gp0_b1[2]    ;
+assign ff1_din   = rxbi_data    ;
+assign ff1_wr_en = rxbi_valid   ;
 assign ff1_rd_en = gp0_b4r      ;
 assign gp0_b4    = ff1_dout     ;
 assign rxb_full  = ff1_full     ;
