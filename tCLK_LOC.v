@@ -72,6 +72,9 @@ parameter TOP0_0	= 3    ,
 output                    clk125             ,
 output                    clk200             ,
 output                    rst                ,
+output                    adc_en             ,
+output                    ldd_en             ,
+output                    cap_en             ,
 input                     Gc_adc_of          ,
 input      [ADC0_0-1:0]   Gc_adc_data        ,
 output                    Gc_cap_mode        ,
@@ -451,7 +454,6 @@ Tc_PL_ins0
 .Gc_cap_trig         (Gc_cap_trig         ),
 .Gc_capr_rdy         (Gc_capr_rdy         ),
 .Gc_wdis             (Gc_wdis             ),
-.gp0_g0              (gp0_g0              ),
 .gp0_c0              (gp0_c0              ),
 .gp0_c1              (gp0_c1              ),
 .gp0_c2              (gp0_c2              ),
@@ -557,5 +559,8 @@ Tc_PL_ins0
 .LED0_L              (LED0_L              ),
 .OPM0_IO             (OPM0_IO             )
     );
+
+assign {adc_en,ldd_en,cap_en} = gp0_g0;
+assign Gc_cap_mode = cap_en;
 
 endmodule

@@ -226,8 +226,8 @@ always@(posedge clk)begin
 		case(addr_L)
 			1  :t_gp0_c1  <= 1   ;
 			2  :t_gp0_c2  <= data;
-			3  :t_gp0_c3  <= data;
-			4  :t_gp0_c4  <= data;
+			3  :t_gp0_c3  <= data-1;
+			4  :t_gp0_c4  <= data-1;
 			5  :t_gp0_c5  <= data;
 			6  :t_gp0_c6  <= data;
 			7  :t_gp0_c7  <= data;

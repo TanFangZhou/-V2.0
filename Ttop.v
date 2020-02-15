@@ -167,6 +167,8 @@ inout                   FIXED_IO_ps_srstb
 wire                Gc_clk200        ;
 wire                Gc_clk125        ;
 wire                Gc_rst           ;
+wire                Gc_adc_en        ;
+wire                Gc_ldd_en        ;
 wire                Gc_adc_of        ;
 wire [ADC0_0-1:0]   Gc_adc_data      ;
 wire                Gc_cap_mode      ;
@@ -240,6 +242,23 @@ tCLK_LOC_ins0
 .clk200               (Gc_clk200               ),
 .clk125               (Gc_clk125               ),
 .rst                  (Gc_rst                  ),
+.adc_en               (Gc_adc_en               ),
+.ldd_en               (Gc_ldd_en               ),
+.Gc_adc_of            (Gc_adc_of            ),
+.Gc_adc_data          (Gc_adc_data          ),
+.Gc_cap_mode          (Gc_cap_mode          ),
+.Gc_cap_wdis          (Gc_cap_wdis          ),
+.Gc_cap_plus          (Gc_cap_plus          ),
+.Gc_com_wdis          (Gc_com_wdis          ),
+.Gc_com_plus          (Gc_com_plus          ),
+.Gc_com_open          (Gc_com_open          ),
+.Gc_com_close         (Gc_com_close         ),
+.Gc_merge_data        (Gc_merge_data        ),
+.Gc_mereg_datv        (Gc_mereg_datv        ),
+.Gc_mereg_datr        (Gc_mereg_datr        ),
+.Gc_cap_trig          (Gc_cap_trig          ),
+.Gc_capr_rdy          (Gc_capr_rdy          ),
+.Gc_wdis              (Gc_wdis              ),
 .ADC0_CSN             (ADC0_CSN             ),
 .ADC0_SCK             (ADC0_SCK             ),
 .ADC0_SDI             (ADC0_SDI             ),
@@ -309,6 +328,8 @@ tCLK_LOC_ins0
 
 wire                Ga_clki        ;
 wire                Ga_rsti        ;
+wire                Ga_adc_en      ;
+wire                Ga_ldd_en      ;
 wire                Ga_clk250      ;
 wire                Ga_adc_of      ;
 wire [ADC0_0-1:0]   Ga_adc_data    ;
@@ -340,6 +361,8 @@ tCLK_ADC_ins0
 (
 .clki         (Ga_clki        ),
 .rsti         (Ga_rsti        ),
+.adc_en       (Ga_adc_en      ),
+.ldd_en       (Ga_ldd_en      ),
 .ADC0_CLKP    (ADC0_CLKP       ),
 .ADC0_CLKN    (ADC0_CLKN       ),
 .ADC0_DAP     (ADC0_DAP        ),
@@ -462,7 +485,9 @@ tPS_EMIO_ins0
 .OSW0_IO         (OSW0_IO         )
     );
 
-assign Ga_clki = Gc_clk200;
-assign Ga_rsti = Gc_rst   ;
+assign Ga_clki   = Gc_clk200;
+assign Ga_rsti   = Gc_rst   ;
+assign Ga_adc_en = Gc_adc_en;
+assign Ga_ldd_en = Gc_ldd_en;
 
 endmodule

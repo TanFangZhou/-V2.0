@@ -31,6 +31,8 @@ parameter TOP0_0 = 3  ,
 )(
 input                   clki          ,
 input                   rsti          ,
+input                   adc_en        ,
+input                   ldd_en        ,
 input                   ADC0_CLKP     ,
 input                   ADC0_CLKN     ,
 input    [TOP0_1-1:0]   ADC0_DAP      ,
@@ -60,19 +62,20 @@ output                  capr_rdy      ,
 output                  mem_reset
     );
 
+wire adc_clk_rst=rsti|(!adc_en);
 wire rst;
 Ta_clk
 Ta_clk_ins0
 (
-.clki      (clki      ),
-.rsti      (rsti      ),
-.ADC0_CLKP (ADC0_CLKP ),
-.ADC0_CLKN (ADC0_CLKN ),
-.rsto      (rst       ),
-.clk250    (clk250    ),
-.clk200    (clk200    ),
-.clk62     (clk62     ),
-.clk50     (clk50     )
+.clki      (clki       ),
+.rsti      (adc_clk_rst),
+.ADC0_CLKP (ADC0_CLKP  ),
+.ADC0_CLKN (ADC0_CLKN  ),
+.rsto      (rst        ),
+.clk250    (clk250     ),
+.clk200    (clk200     ),
+.clk62     (clk62      ),
+.clk50     (clk50      )
     );
 
 wire merge_en;
@@ -98,6 +101,7 @@ Ta_adc_ins0
 .mereg_datv  (mereg_datv  )
     );
 
+wire ldd_rst=rst|(!ldd_en);
 wire ldd_trig;
 wire lddr_rdy;
 Ta_ldd
@@ -108,7 +112,7 @@ Ta_ldd
 Ta_ldd_ins0
 (
 .clk200     (clk200      ),
-.rst        (rst         ),
+.rst        (ldd_rst     ),
 .cap_mode   (cap_mode    ),
 .cap_wdis   (cap_wdis    ),
 .cap_plus   (cap_plus    ),

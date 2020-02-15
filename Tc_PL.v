@@ -73,7 +73,7 @@ input                     clk125             ,
 input                     rst                ,
 input                     Gc_adc_of          ,
 input      [ADC0_0-1:0]   Gc_adc_data        ,
-output                    Gc_cap_mode        ,
+input                     Gc_cap_mode        ,
 output     [TOP0_0-1:0]   Gc_cap_wdis        ,
 output     [LDD0_0-1:0]   Gc_cap_plus        ,
 output     [TOP0_0-1:0]   Gc_com_wdis        ,
@@ -86,7 +86,6 @@ output                    Gc_mereg_datr      ,
 output                    Gc_cap_trig        ,
 input                     Gc_capr_rdy        ,
 input      [TOP0_0-1:0]   Gc_wdis            ,
-input      [AGP0_0 -1:0]  gp0_g0	           ,
 output     [AGP0_1 -1:0]  gp0_c0	           ,
 input                     gp0_c1	           ,
 input      [AGP0_2 -1:0]  gp0_c2	           ,
@@ -193,12 +192,138 @@ output     [TOP0_2-1:0]   LED0_L             ,
 output     [TOP0_4-1:0]   OPM0_IO
     );
 
+wire        cap_FDA0_SCK   ;
+wire        cap_FDA0_CSN   ;
+wire        cap_FDA0_SDI   ;
+wire        cap_DAC0_SCK   ;
+wire        cap_DAC0_CSN   ;
+wire        cap_DAC0_SDI   ;
+wire        cap_OPA0_10X1  ;
+wire        cap_OPA0_10X2  ;
+wire        cap_OPA0_OPX1  ;
+wire        cap_OPA0_OPX2  ;
+Tc_PL_cap
+#(
+.TOP0_0     (TOP0_0     ),
+.TOP0_1     (TOP0_1     ),
+.TOP0_2     (TOP0_2     ),
+.TOP0_3     (TOP0_3     ),
+.TOP0_4     (TOP0_4     ),
+.ADC0_0     (ADC0_0     ),
+.ADC0_1     (ADC0_1     ),
+.LDD0_0     (LDD0_0     ),
+.CAP0_0     (CAP0_0     ),
+.CAP0_1     (CAP0_1     ),
+.AGP0_0     (AGP0_0     ),
+.AGP0_1     (AGP0_1     ),
+.AGP0_2     (AGP0_2     ),
+.AGP0_3     (AGP0_3     ),
+.AGP0_4     (AGP0_4     ),
+.AGP0_5     (AGP0_5     ),
+.AGP0_6     (AGP0_6     ),
+.AGP0_7     (AGP0_7     ),
+.AGP0_8     (AGP0_8     ),
+.AGP0_9     (AGP0_9     ),
+.AGP0_10    (AGP0_10    ),
+.AGP0_11    (AGP0_11    ),
+.AGP0_12    (AGP0_12    ),
+.AGP0_13    (AGP0_13    ),
+.AGP0_14    (AGP0_14    ),
+.AGP0_15    (AGP0_15    ),
+.AGP0_16    (AGP0_16    ),
+.AGP0_17    (AGP0_17    ),
+.AGP0_18    (AGP0_18    ),
+.AGP0_19    (AGP0_19    ),
+.AGP0_20    (AGP0_20    ),
+.AGP0_21    (AGP0_21    ),
+.AGP0_22    (AGP0_22    ),
+.AGP0_23    (AGP0_23    ),
+.AGP0_24    (AGP0_24    ),
+.AGP0_25    (AGP0_25    ),
+.AGP0_26    (AGP0_26    ),
+.AGP0_27    (AGP0_27    ),
+.AGP0_28    (AGP0_28    ),
+.AGP0_29    (AGP0_29    ),
+.AGP0_30    (AGP0_30    ),
+.AGP0_31    (AGP0_31    ),
+.AGP0_32    (AGP0_32    ),
+.AGP0_33    (AGP0_33    ),
+.AGP0_34    (AGP0_34    ),
+.AGP0_35    (AGP0_35    )
+)
+Tc_PL_cap_ins0
+(
+.clk125           (clk125           ),
+.rst              (rst              ),
+.Gc_merge_data    (Gc_merge_data    ),
+.Gc_mereg_datv    (Gc_mereg_datv    ),
+.Gc_mereg_datr    (Gc_mereg_datr    ),
+.Gc_cap_trig      (Gc_cap_trig      ),
+.Gc_capr_rdy      (Gc_capr_rdy      ),
+.Gc_cap_mode      (Gc_cap_mode      ),
+.Gc_cap_wdis      (Gc_cap_wdis      ),
+.Gc_cap_plus      (Gc_cap_plus      ),
+.gp0_c0           (gp0_c0           ),
+.gp0_c1           (gp0_c1           ),
+.gp0_c2           (gp0_c2           ),
+.gp0_c3           (gp0_c3           ),
+.gp0_c4           (gp0_c4           ),
+.gp0_c5           (gp0_c5           ),
+.gp0_c6           (gp0_c6           ),
+.gp0_c7           (gp0_c7           ),
+.gp0_c8           (gp0_c8           ),
+.gp0_c9           (gp0_c9           ),
+.gp0_c10          (gp0_c10          ),
+.gp0_c11          (gp0_c11          ),
+.gp0_c12          (gp0_c12          ),
+.gp0_c13          (gp0_c13          ),
+.gp0_c14          (gp0_c14          ),
+.gp0_c15          (gp0_c15          ),
+.gp0_c16          (gp0_c16          ),
+.gp0_c17          (gp0_c17          ),
+.gp0_c18          (gp0_c18          ),
+.gp0_c19          (gp0_c19          ),
+.gp0_c20          (gp0_c20          ),
+.gp0_c21          (gp0_c21          ),
+.gp0_c22          (gp0_c22          ),
+.gp0_c23          (gp0_c23          ),
+.gp0_c24          (gp0_c24          ),
+.gp0_c25          (gp0_c25          ),
+.gp0_c26          (gp0_c26          ),
+.gp0_c27          (gp0_c27          ),
+.gp0_c28          (gp0_c28          ),
+.gp0_c29          (gp0_c29          ),
+.gp0_c30          (gp0_c30          ),
+.gp0_c31          (gp0_c31          ),
+.gp0_c32          (gp0_c32          ),
+.gp0_c33          (gp0_c33          ),
+.gp0_c34          (gp0_c34          ),
+.gp0_c35          (gp0_c35          ),
+.gp0_c0w          (gp0_c0w          ),
+.acp0_tx_en       (acp0_tx_en       ),
+.acp0_tx_rdy      (acp0_tx_rdy      ),
+.acp0_tx_awaddr   (acp0_tx_awaddr   ),
+.acp0_tx_awid     (acp0_tx_awid     ),
+.acp0_tx_wdata    (acp0_tx_wdata    ),
+.acp0_tx_wdreq    (acp0_tx_wdreq    ),
+.FDA0_SCK         (cap_FDA0_SCK     ),
+.FDA0_CSN         (cap_FDA0_CSN     ),
+.FDA0_SDI         (cap_FDA0_SDI     ),
+.DAC0_SDI         (cap_DAC0_SDI     ),
+.DAC0_SCK         (cap_DAC0_SCK     ),
+.DAC0_CSN         (cap_DAC0_CSN     ),
+.OPA0_10X1        (cap_OPA0_10X1    ),
+.OPA0_10X2        (cap_OPA0_10X2    ),
+.OPA0_OPX1        (cap_OPA0_OPX1    ),
+.OPA0_OPX2        (cap_OPA0_OPX2    )
+    );
+
 wire bus_FDA0_SCK;
 wire bus_FDA0_CSN;
 wire bus_FDA0_SDI;
-wire bus_DAC0_SDI;
 wire bus_DAC0_SCK;
 wire bus_DAC0_CSN;
+wire bus_DAC0_SDI;
 Tc_PL_bus
 #(
 .AGP0_21(AGP0_21	),
@@ -242,9 +367,6 @@ Tc_PL_bus_ins0
 .LPL0_SCK    (LPL0_SCK        ),
 .LPL0_SDI    (LPL0_SDI        )
     );
-
-
-Tc_PL_cap  ();
 
 wire                   chips_OPA0_10X1 ;
 wire                   chips_OPA0_10X2 ;
@@ -343,5 +465,16 @@ Tc_PL_chips_ins0
 .LED0_L        (LED0_L        ),
 .OPM0_IO       (OPM0_IO       )
     );
+
+assign FDA0_SCK  = Gc_cap_mode ? cap_FDA0_SCK : bus_FDA0_SCK   ;
+assign FDA0_CSN  = Gc_cap_mode ? cap_FDA0_CSN : bus_FDA0_CSN   ;
+assign FDA0_SDI  = Gc_cap_mode ? cap_FDA0_SDI : bus_FDA0_SDI   ;
+assign DAC0_SCK  = Gc_cap_mode ? cap_DAC0_SCK : bus_DAC0_SCK   ;
+assign DAC0_CSN  = Gc_cap_mode ? cap_DAC0_CSN : bus_DAC0_CSN   ;
+assign DAC0_SDI  = Gc_cap_mode ? cap_DAC0_SDI : bus_DAC0_SDI   ;
+assign OPA0_10X1 = Gc_cap_mode ? cap_OPA0_10X1: chips_OPA0_10X1;
+assign OPA0_10X2 = Gc_cap_mode ? cap_OPA0_10X2: chips_OPA0_10X2;
+assign OPA0_OPX1 = Gc_cap_mode ? cap_OPA0_OPX1: chips_OPA0_OPX1;
+assign OPA0_OPX2 = Gc_cap_mode ? cap_OPA0_OPX2: chips_OPA0_OPX2;
 
 endmodule
