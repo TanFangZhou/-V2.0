@@ -305,10 +305,13 @@ Tc_PL_cap_ctl_ins0
 .data_cmpt     (ctl_data_cmpt    )
     );
 
+wire [CAP0_10-1:0]  cap_gain_cycle  ;
+wire [CAP0_11-1:0]  cap_gain_Lddel  ;
 Tc_PL_cap_gain
 #(
 .CAP0_1  (CAP0_1  ),
 .CAP0_2  (CAP0_2  ),
+.CAP0_10 (CAP0_10 ),
 .CAP0_11 (CAP0_11 ),
 .CAP0_12 (CAP0_12 ),
 .CAP0_13 (CAP0_13 ),
@@ -338,6 +341,16 @@ Tc_PL_cap_gain_ins0
 .cap_gain1_relay  (Ps_cap_gain1_relay  ),
 .cap_gain2_relay  (Ps_cap_gain2_relay  ),
 .cap_gain3_relay  (Ps_cap_gain3_relay  ),
+.cap_gain0_cycle    (Ps_cap_gain0_cycle    ),
+.cap_gain1_cycle    (Ps_cap_gain1_cycle    ),
+.cap_gain2_cycle    (Ps_cap_gain2_cycle    ),
+.cap_gain3_cycle    (Ps_cap_gain3_cycle    ),
+.cap_gain0_Lddel    (Ps_cap_gain0_Lddel    ),
+.cap_gain1_Lddel    (Ps_cap_gain1_Lddel    ),
+.cap_gain2_Lddel    (Ps_cap_gain2_Lddel    ),
+.cap_gain3_Lddel    (Ps_cap_gain3_Lddel    ),
+.cap_gain_cycle     (cap_gain_cycle        ),
+.cap_gain_Lddel     (cap_gain_Lddel        ),
 .FDA0_SCK         (FDA0_SCK         ),
 .FDA0_CSN         (FDA0_CSN         ),
 .FDA0_SDI         (FDA0_SDI         ),
@@ -373,14 +386,8 @@ Tc_PL_cap_data_ins0
 .cap_points         (Ps_cap_points         ),
 .cap_addr           (Ps_cap_addr           ),
 .cap_crc32          (Ps_cap_crc32          ),
-.cap_gain0_cycle    (Ps_cap_gain0_cycle    ),
-.cap_gain1_cycle    (Ps_cap_gain1_cycle    ),
-.cap_gain2_cycle    (Ps_cap_gain2_cycle    ),
-.cap_gain3_cycle    (Ps_cap_gain3_cycle    ),
-.cap_gain0_Lddel    (Ps_cap_gain0_Lddel    ),
-.cap_gain1_Lddel    (Ps_cap_gain1_Lddel    ),
-.cap_gain2_Lddel    (Ps_cap_gain2_Lddel    ),
-.cap_gain3_Lddel    (Ps_cap_gain3_Lddel    ),
+.cap_gain_cycle     (cap_gain_cycle        ),
+.cap_gain_Lddel     (cap_gain_Lddel        ),
 .Gc_cap_trig        (Gc_cap_trig        ),
 .Gc_capr_rdy        (Gc_capr_rdy        ),
 .Gc_merge_data      (Gc_merge_data      ),
@@ -399,7 +406,7 @@ assign ctl_cap_trig    = Ps_cap_trig        ;
 assign Ps_cap_cmpt     = ctl_cap_cmpt       ;
 assign Ps_cap_time     = ctl_cap_time       ;
 assign ctl_gain_number = Ps_cap_gain_number ;
-assign Gc_cap_mode     = !rst               ;
+//assign Gc_cap_mode     = !rst               ;
 assign Gc_cap_wdis     = Ps_cap_ld_wdis     ;
 assign Gc_cap_plus     = Ps_cap_ld_plus     ;
 
