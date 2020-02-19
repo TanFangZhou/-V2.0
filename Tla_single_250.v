@@ -68,22 +68,21 @@ always@(posedge Gc_clk125)begin
 		t_Gc_adc_of   <= 0;
 		t_Gc_adc_data <= 0;
 	end else begin
-		if((!Gc_req)&(&Gc_req_cnt))begin
-			t_Gc_adc_of   <= t_Ga_adc_of;
+		if(&Gc_req_cnt)begin
+			t_Gc_adc_of   <= t_Ga_adc_of  ;
 			t_Gc_adc_data <= t_Ga_adc_data;
 		end
 	end
 end
 
-reg Ga_req  =0;
-reg Ga_req_l=0;
 always@(posedge Ga_clk250)begin
-	if(Ga_req&(!Ga_req_l))begin
+	if(Gc_req)begin
 		t_Ga_adc_of   <= Ga_adc_of   ;
 		t_Ga_adc_data <= Ga_adc_data ;
 	end
-	Ga_req   <= Gc_req;
-	Ga_req_l <= Ga_req;
 end
+
+assign Gc_adc_of   = t_Gc_adc_of   ;
+assign Gc_adc_data = t_Gc_adc_data ;
 
 endmodule

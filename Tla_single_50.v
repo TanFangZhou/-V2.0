@@ -20,69 +20,47 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 
-module Tla_single_50(
+module Tla_single_50
+#(
+parameter ADC0_2  = 2
+)(
 input                    Gc_clk125        ,
 input                    Gc_rst           ,
 input                    Gc_cap_trig      ,
 output                   Gc_capr_rdy      ,
+input                    Gc_cap_cmpt        ,
+input     [ADC0_2-1:0]   Gc_cap_phase       ,
 input                    Ga_clk50         ,
 output                   Ga_cap_trig      ,
-input                    Ga_capr_rdy
+input                    Ga_capr_rdy      ,
+output                    Ga_cap_cmpt        ,
+output     [ADC0_2-1:0]   Ga_cap_phase
     );
 
-reg[1:0] Ga_capr_rdy_c=0;
-always@(posedge Gc_clk125)begin
-	Ga_capr_rdy_c <= {Ga_capr_rdy_c,Ga_capr_rdy};
-end
+Tla_single_50_trig
+Tla_single_50_trig_ins0
+(
+.Gc_clk125   (Gc_clk125       ),
+.Gc_rst      (Gc_rst          ),
+.Gc_cap_trig (Gc_cap_trig     ),
+.Gc_cap_cmpt (Gc_cap_cmpt     ),
+.Ga_clk50    (Ga_clk50        ),
+.Ga_cap_trig (Ga_cap_trig     ),
+.Ga_cap_cmpt (Ga_cap_cmpt     )
+    );
 
-reg t_Gc_capr_rdy=0;
-always@(posedge Gc_clk125)begin
-	if(Gc_rst)begin
-		t_Gc_capr_rdy <= 0;
-	end else begin
-		if(&Ga_capr_rdy_c&Ga_capr_rdy)begin
-			t_Gc_capr_rdy <= 1;
-		end else begin
-			t_Gc_capr_rdy <= 0;
-		end
-	end
-end
+Tdebounce
+#(
+.VAL_CNT(3)
+)
+Tdebounce_Ga_capr_rdy
+(
+.clk        (Gc_clk125),
+.rst        (Gc_rst),
+.signal_in  (Ga_capr_rdy),
+.signal_out (Gc_capr_rdy)
+    );
 
-assign Gc_capr_rdy = t_Gc_capr_rdy;
-
-reg t_Ga_cap_trig=0;
-
-reg      t_Gc_cap_trig  =0;
-reg[2:0] Gc_cap_trig_cnt=0;
-always@(posedge Gc_clk125)begin
-	if(Gc_rst)begin
-		t_Gc_cap_trig   <= 0;
-		Gc_cap_trig_cnt <= 0;
-	end else begin
-		if(Gc_cap_trig)begin
-			t_Gc_cap_trig <= 1;
-		end else if(&Gc_cap_trig_cnt)begin
-			t_Gc_cap_trig <= 0;
-		end
-		if(t_Gc_cap_trig)begin
-			Gc_cap_trig_cnt <= Gc_cap_trig_cnt + 1;
-		end else begin
-			Gc_cap_trig_cnt <= 0;
-		end
-	end
-end
-
-reg[1:0] t_Gc_cap_trig_a=0;
-always@(posedge Ga_clk50)begin
-	t_Gc_cap_trig_a <= {t_Gc_cap_trig_a,t_Gc_cap_trig};
-end
-
-always@(posedge Ga_clk50)begin
-	if(&t_Gc_cap_trig_a&t_Gc_cap_trig)begin
-		t_Ga_cap_trig <= 1;
-	end else begin
-		t_Ga_cap_trig <= 0;
-	end
-end
+assign Ga_cap_phase = Gc_cap_phase;
 
 endmodule

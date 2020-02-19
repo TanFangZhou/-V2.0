@@ -102,6 +102,8 @@ output     [LDD0_0-1:0]   Gc_cap_plus        ,
 
 output                    Gc_cap_trig        ,
 input                     Gc_capr_rdy        ,
+output                    Gc_cap_cmpt        ,
+output     [CAP0_3-1:0]   Gc_cap_phase       ,
 input      [ADC0_1-1:0]   Gc_merge_data      ,
 input                     Gc_mereg_datv      ,
 output                    Gc_mereg_datr      ,
@@ -305,12 +307,15 @@ Tc_PL_cap_ctl_ins0
 .data_cmpt     (ctl_data_cmpt    )
     );
 
+wire [CAP0_7 -1:0]  cap_gain_addr   ;
 wire [CAP0_10-1:0]  cap_gain_cycle  ;
 wire [CAP0_11-1:0]  cap_gain_Lddel  ;
 Tc_PL_cap_gain
 #(
 .CAP0_1  (CAP0_1  ),
 .CAP0_2  (CAP0_2  ),
+.CAP0_6 (CAP0_6 ),
+.CAP0_7 (CAP0_7 ),
 .CAP0_10 (CAP0_10 ),
 .CAP0_11 (CAP0_11 ),
 .CAP0_12 (CAP0_12 ),
@@ -341,6 +346,8 @@ Tc_PL_cap_gain_ins0
 .cap_gain1_relay  (Ps_cap_gain1_relay  ),
 .cap_gain2_relay  (Ps_cap_gain2_relay  ),
 .cap_gain3_relay  (Ps_cap_gain3_relay  ),
+.cap_points         (Ps_cap_points         ),
+.cap_addr           (Ps_cap_addr           ),
 .cap_gain0_cycle    (Ps_cap_gain0_cycle    ),
 .cap_gain1_cycle    (Ps_cap_gain1_cycle    ),
 .cap_gain2_cycle    (Ps_cap_gain2_cycle    ),
@@ -349,6 +356,7 @@ Tc_PL_cap_gain_ins0
 .cap_gain1_Lddel    (Ps_cap_gain1_Lddel    ),
 .cap_gain2_Lddel    (Ps_cap_gain2_Lddel    ),
 .cap_gain3_Lddel    (Ps_cap_gain3_Lddel    ),
+.cap_gain_addr      (cap_gain_addr         ),
 .cap_gain_cycle     (cap_gain_cycle        ),
 .cap_gain_Lddel     (cap_gain_Lddel        ),
 .FDA0_SCK         (FDA0_SCK         ),
@@ -384,12 +392,15 @@ Tc_PL_cap_data_ins0
 .data_cmpt          (ctl_data_cmpt          ),
 .cap_phase_number   (Ps_cap_phase_number   ),
 .cap_points         (Ps_cap_points         ),
-.cap_addr           (Ps_cap_addr           ),
+.cap_addr           (cap_gain_addr         ),
+.cap_crc_en         (Ps_cap_cing           ),
 .cap_crc32          (Ps_cap_crc32          ),
 .cap_gain_cycle     (cap_gain_cycle        ),
 .cap_gain_Lddel     (cap_gain_Lddel        ),
 .Gc_cap_trig        (Gc_cap_trig        ),
 .Gc_capr_rdy        (Gc_capr_rdy        ),
+.Gc_cap_cmpt        (Gc_cap_cmpt        ),
+.Gc_cap_phase       (Gc_cap_phase       ),
 .Gc_merge_data      (Gc_merge_data      ),
 .Gc_mereg_datv      (Gc_mereg_datv      ),
 .Gc_mereg_datr      (Gc_mereg_datr      ),

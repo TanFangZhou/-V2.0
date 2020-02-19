@@ -26,7 +26,7 @@ parameter TOP0_0 = 3  ,
           TOP0_1 = 7  ,
           ADC0_0 = 14 ,
           ADC0_1 = 56 ,
-          CAP0_1 = 2  ,
+          ADC0_2 = 2  ,
           LDD0_0 = 32
 )(
 input                   clki          ,
@@ -59,6 +59,8 @@ output                  mereg_datv    ,
 output                  clk50         ,
 input                   cap_trig      ,
 output                  capr_rdy      ,
+input                   cap_cmpt      ,
+input    [ADC0_2-1:0]   cap_phase     ,
 output                  mem_reset
     );
 
@@ -129,7 +131,7 @@ Ta_ldd_ins0
 
 Ta_sync
 #(
-.CAP0_1(CAP0_1)
+.CAP0_1(ADC0_2)
 )
 Ta_sync_ins0
 (

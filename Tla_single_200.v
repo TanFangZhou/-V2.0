@@ -59,8 +59,8 @@ reg t_Gc_com_close  =0;
 reg t_Ga_com_open   =0;
 reg t_Ga_com_close  =0;
 
-reg[0:0] Gc_delcnt_open =0;
-reg[0:0] Gc_delcnt_close=0;
+reg[1:0] Gc_delcnt_open =0;
+reg[1:0] Gc_delcnt_close=0;
 always@(posedge Gc_clk125)begin
 	if(Gc_rst)begin
 		t_Gc_com_open   <= 0;
@@ -91,24 +91,51 @@ always@(posedge Gc_clk125)begin
 	end
 end
 
-reg[1:0] Ga_open   =0;
-reg[1:0] Ga_close  =0;
-reg      Ga_open_v =0;
-reg      Ga_close_v=0;
+reg[1:0] cnt_Ga_open   =0;
+reg[1:0] cnt_Ga_close  =0;
 always@(posedge Ga_clk200)begin
-	Ga_open    <= {Ga_open ,t_Gc_com_open };
-	Ga_close   <= {Ga_close,t_Gc_com_close};
-	Ga_open_v  <= &Ga_open &t_Gc_com_open  ;
-	Ga_close_v <= &Ga_close&t_Gc_com_close ;
+	if(t_Gc_com_open)begin
+		if(!cnt_Ga_open[1])begin
+			cnt_Ga_open <= cnt_Ga_open + 1;
+		end
+	end else begin
+		cnt_Ga_open <= 0;
+	end
+	if(t_Gc_com_close)begin
+		if(!cnt_Ga_close[1])begin
+			cnt_Ga_close <= cnt_Ga_close + 1;
+		end
+	end else begin
+		cnt_Ga_close <= 0;
+	end
 end
 
-reg      l_Ga_open_v =0;
-reg      l_Ga_close_v=0;
+reg      f_Ga_open_v =0;
+reg      f_Ga_close_v=0;
 always@(posedge Ga_clk200)begin
-	l_Ga_open_v    <= Ga_open_v  ;
-	l_Ga_close_v   <= Ga_close_v ;
-	t_Ga_com_open  <= Ga_open_v  & l_Ga_open_v  ;
-	t_Ga_com_close <= Ga_close_v & l_Ga_close_v ;
+	if(cnt_Ga_open[1])begin
+		f_Ga_open_v <= 1;
+	end else begin
+		f_Ga_open_v <= 0;
+	end
+	if(cnt_Ga_close[1])begin
+		f_Ga_close_v <= 1;
+	end else begin
+		f_Ga_close_v <= 0;
+	end
+end
+
+always@(posedge Ga_clk200)begin
+	if(cnt_Ga_open[1]&(!f_Ga_open_v))begin
+		t_Ga_com_open <= 1;
+	end else begin
+		t_Ga_com_open <= 0;
+	end
+	if(cnt_Ga_close[1]&(!f_Ga_close_v))begin
+		t_Ga_com_close <= 1;
+	end else begin
+		t_Ga_com_close <= 0;
+	end
 end
 
 assign Gc_cap_mode  = Ga_cap_mode   ;

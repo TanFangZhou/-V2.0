@@ -31,8 +31,7 @@ parameter CAP0_3  = 2   ,
 	        CAP0_9  = 32  ,
 	        CAP0_10 = 18  ,
 	        CAP0_11 = 32  ,
-          ADC0_1  = 56  ,
-          CAP0_15 = 128
+          ADC0_1  = 56
 )(
 input                     clk                ,
 input                     rst                ,
@@ -40,8 +39,9 @@ input                     data_en            ,
 output                    data_cmpt          ,
 input      [CAP0_3 -1:0]  cap_phase_number   ,
 input      [CAP0_6 -1:0]  cap_points         ,
-input      [CAP0_7 -1:0]  cap_addr           ,
+input                     cap_crc_en         ,
 output     [CAP0_8 -1:0]  cap_crc32          ,
+input      [CAP0_7 -1:0]  cap_gain_addr      ,
 input      [CAP0_10-1:0]  cap_gain_cycle     ,
 input      [CAP0_11-1:0]  cap_gain_Lddel     ,
 output                    Gc_cap_trig        ,
@@ -58,6 +58,8 @@ output     [2:0]          acp0_tx_awid       ,
 output     [63:0]         acp0_tx_wdata      ,
 input                     acp0_tx_wdreq
     );
+
+localparam CAP0_15 = 128;
 
 wire    buff_en     ;
 wire    buff_cmpt   ;
@@ -122,7 +124,8 @@ Tc_PL_cap_data_acptx_ins0
 .rst            (rst            ),
 .tacp_en        (tacp_en        ),
 .tacp_cmpt      (tacp_cmpt      ),
-.cap_addr       (cap_addr       ),
+.cap_crc_en     (cap_crc_en     ),
+.cap_addr       (cap_gain_addr  ),
 .cap_crc32      (cap_crc32      ),
 .buff_empty     (buff_empty     ),
 .buff_dout      (buff_dout      ),

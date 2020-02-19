@@ -29,9 +29,8 @@ parameter TOP0_0  = 3         ,
           TOP0_4  = 4         ,
           ADC0_0  = TOP0_1*2  ,
           ADC0_1  = ADC0_0*4  ,
+          ADC0_2  = 2         ,
           LDD0_0  = 32        ,
-          CAP0_0  = 4         ,
-          CAP0_1  = 2         ,
           AGP0_0	= 3         ,
           AGP0_1	= 2         ,
           AGP0_2	= 1         ,
@@ -184,6 +183,8 @@ wire                Gc_mereg_datv    ;
 wire                Gc_mereg_datr    ;
 wire                Gc_cap_trig      ;
 wire                Gc_capr_rdy      ;
+wire                Gc_cap_cmpt    ;
+wire [ADC0_2-1:0]   Gc_cap_phase   ;
 wire [63:0]         Ps_GPIO_0_0_tri_io  ;
 wire                Ps_SPI0_MISO_I_0    ;
 wire                Ps_SPI0_MOSI_O_0    ;
@@ -348,13 +349,15 @@ wire                Ga_mereg_datv  ;
 wire                Ga_clk50       ;
 wire                Ga_cap_trig    ;
 wire                Ga_capr_rdy    ;
+wire                Ga_cap_cmpt    ;
+wire [ADC0_2-1:0]   Ga_cap_phase   ;
 wire                Ga_mem_reset   ;
 tCLK_ADC
 #(
 .TOP0_1 (TOP0_1 ),
 .ADC0_0 (ADC0_0 ),
 .ADC0_1 (ADC0_1 ),
-.CAP0_1 (CAP0_1 ),
+.ADC0_2 (ADC0_2 ),
 .LDD0_0 (LDD0_0 )
 )
 tCLK_ADC_ins0
@@ -389,6 +392,8 @@ tCLK_ADC_ins0
 .clk50        (Ga_clk50       ),
 .cap_trig     (Ga_cap_trig    ),
 .capr_rdy     (Ga_capr_rdy    ),
+.cap_cmpt      (Ga_cap_cmpt     ),
+.cap_phase     (Ga_cap_phase    ),
 .mem_reset    (Ga_mem_reset   )
     );
 
@@ -401,9 +406,8 @@ tCLK_L2A
 .TOP0_4(TOP0_4),
 .ADC0_0(ADC0_0),
 .ADC0_1(ADC0_1),
-.LDD0_0(LDD0_0),
-.CAP0_0(CAP0_0),
-.CAP0_1(CAP0_1)
+.ADC0_2(ADC0_2),
+.LDD0_0(LDD0_0)
 )
 tCLK_L2A_ins0
 (
@@ -423,6 +427,8 @@ tCLK_L2A_ins0
 .Gc_mereg_datr    (Gc_mereg_datr    ),
 .Gc_cap_trig      (Gc_cap_trig      ),
 .Gc_capr_rdy      (Gc_capr_rdy      ),
+.Gc_cap_cmpt       (Gc_cap_cmpt      ),
+.Gc_cap_phase      (Gc_cap_phase     ),
 .Gc_wdis          (Gc_wdis          ),
 .Ga_clk250        (Ga_clk250        ),
 .Ga_adc_of        (Ga_adc_of        ),
@@ -442,6 +448,8 @@ tCLK_L2A_ins0
 .Ga_clk50         (Ga_clk50         ),
 .Ga_cap_trig      (Ga_cap_trig      ),
 .Ga_capr_rdy      (Ga_capr_rdy      ),
+.Ga_cap_cmpt       (Ga_cap_cmpt      ),
+.Ga_cap_phase      (Ga_cap_phase     ),
 .Ga_mem_reset     (Ga_mem_reset     )
     );
 

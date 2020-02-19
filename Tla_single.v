@@ -30,8 +30,7 @@ parameter TOP0_0  = 3         ,
           ADC0_0  = TOP0_1*2  ,
           ADC0_1  = ADC0_0*4  ,
           LDD0_0  = 32        ,
-          CAP0_0  = 4         ,
-          CAP0_1  = 2
+          ADC0_2  = 2
 )(
 input                    Gc_clk125        ,
 input                    Gc_rst           ,
@@ -47,6 +46,8 @@ input                    Gc_com_close     ,
 output    [TOP0_0-1:0]   Gc_wdis          ,
 input                    Gc_cap_trig      ,
 output                   Gc_capr_rdy      ,
+input                    Gc_cap_cmpt        ,
+input     [ADC0_2-1:0]   Gc_cap_phase       ,
 input                    Ga_clk250        ,
 input                    Ga_adc_of        ,
 input     [ADC0_0-1:0]   Ga_adc_data      ,
@@ -61,7 +62,9 @@ output                   Ga_com_close     ,
 input     [TOP0_0-1:0]   Ga_wdis          ,
 input                    Ga_clk50         ,
 output                   Ga_cap_trig      ,
-input                    Ga_capr_rdy
+input                    Ga_capr_rdy      ,
+output                    Ga_cap_cmpt        ,
+output     [ADC0_2-1:0]   Ga_cap_phase       
     );
 
 Tla_single_250
@@ -73,9 +76,7 @@ Tla_single_250
 .TOP0_4 (TOP0_4 ),
 .ADC0_0 (ADC0_0 ),
 .ADC0_1 (ADC0_1 ),
-.LDD0_0 (LDD0_0 ),
-.CAP0_0 (CAP0_0 ),
-.CAP0_1 (CAP0_1 )
+.LDD0_0 (LDD0_0 )
 )
 Tla_single_250_ins0
 (
@@ -97,9 +98,7 @@ Tla_single_200
 .TOP0_4 (TOP0_4),
 .ADC0_0 (ADC0_0),
 .ADC0_1 (ADC0_1),
-.LDD0_0 (LDD0_0),
-.CAP0_0 (CAP0_0),
-.CAP0_1 (CAP0_1)
+.LDD0_0 (LDD0_0)
 )
 Tla_single_200_ins0
 (
@@ -125,12 +124,19 @@ Tla_single_200_ins0
     );
 
 Tla_single_50
+#(
+.ADC0_2 (ADC0_2)
+)
 Tla_single_50_ins0
 (
 .Gc_clk125        (Gc_clk125        ),
 .Gc_rst           (Gc_rst           ),
 .Gc_cap_trig      (Gc_cap_trig      ),
 .Gc_capr_rdy      (Gc_capr_rdy      ),
+.Gc_cap_cmpt      (Gc_cap_cmpt ),
+.Gc_cap_phase     (Gc_cap_phase),
+.Ga_cap_cmpt      (Ga_cap_cmpt ),
+.Ga_cap_phase     (Ga_cap_phase),
 .Ga_clk50         (Ga_clk50         ),
 .Ga_cap_trig      (Ga_cap_trig      ),
 .Ga_capr_rdy      (Ga_capr_rdy      )

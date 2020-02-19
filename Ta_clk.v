@@ -1,22 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2020/02/09 11:45:26
-// Design Name: 
+// Design Name:
 // Module Name: Ta_clk
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -98,7 +98,7 @@ assign clk250 = pll0_clk_out1      ;
 assign clk200 = pll0_clk_out2      ;
 assign clk62  = pll0_clk_out3      ;
 assign clk50  = pll0_clk_out4      ;
-assign pll0_reset   = DEL_RDY      ;
+assign pll0_reset   = !DEL_RDY     ;
 assign pll0_clk_in1 = ADC0_CLK_DEL ;
 
 localparam MSB_DEL = 16;

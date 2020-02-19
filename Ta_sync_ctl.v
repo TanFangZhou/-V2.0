@@ -1,22 +1,22 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
+// Company:
+// Engineer:
+//
 // Create Date: 2020/02/09 11:45:27
-// Design Name: 
+// Design Name:
 // Module Name: Ta_sync_ctl
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
+// Project Name:
+// Target Devices:
+// Tool Versions:
+// Description:
+//
+// Dependencies:
+//
 // Revision:
 // Revision 0.01 - File Created
 // Additional Comments:
-// 
+//
 //////////////////////////////////////////////////////////////////////////////////
 
 
@@ -30,7 +30,7 @@ input                   cap_trig    ,
 output                  capr_rdy    ,
 output                  sync_trig   ,
 input                   syncr_rdy   ,
-output                  mem_reset  
+output                  mem_reset
     );
 
 localparam S_IDLE = 0,
@@ -72,6 +72,7 @@ always@(posedge clk50)begin
 			S_CMP  :begin
 				if(mem_reset_cmpt)begin
 					mem_reset_en <= 0     ;
+		    	t_capr_rdy   <= 1     ;
 					state        <= S_IDLE;
 				end
 			end
