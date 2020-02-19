@@ -99,7 +99,6 @@ input      [AGP0_16-1:0]  gp0_c35	           ,
 input                     Gc_cap_mode        ,
 output     [TOP0_0-1:0]   Gc_cap_wdis        ,
 output     [LDD0_0-1:0]   Gc_cap_plus        ,
-
 output                    Gc_cap_trig        ,
 input                     Gc_capr_rdy        ,
 output                    Gc_cap_cmpt        ,
@@ -113,6 +112,7 @@ output     [31:0]         acp0_tx_awaddr     ,
 output     [2:0]          acp0_tx_awid       ,
 output     [63:0]         acp0_tx_wdata      ,
 input                     acp0_tx_wdreq      ,
+output                    cap_irq            ,
 output                    FDA0_SCK           ,
 output                    FDA0_CSN           ,
 output                    FDA0_SDI           ,
@@ -374,12 +374,9 @@ Tc_PL_cap_gain_ins0
 Tc_PL_cap_data
 #(
 .CAP0_3 (CAP0_3 ),
-.CAP0_4 (CAP0_4 ),
-.CAP0_5 (CAP0_5 ),
 .CAP0_6 (CAP0_6 ),
 .CAP0_7 (CAP0_7 ),
 .CAP0_8 (CAP0_8 ),
-.CAP0_9 (CAP0_9 ),
 .CAP0_10(CAP0_10),
 .CAP0_11(CAP0_11),
 .ADC0_1 (ADC0_1 )
@@ -420,5 +417,6 @@ assign ctl_gain_number = Ps_cap_gain_number ;
 //assign Gc_cap_mode     = !rst               ;
 assign Gc_cap_wdis     = Ps_cap_ld_wdis     ;
 assign Gc_cap_plus     = Ps_cap_ld_plus     ;
+assign cap_irq         = Ps_cap_irq_en&gp0_c0[0];
 
 endmodule

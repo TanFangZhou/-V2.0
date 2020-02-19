@@ -182,6 +182,8 @@ Tc_PL_cap_gain_relay_ins0
 Tc_PL_cap_gain_data
 #(
 .CAP0_1  (CAP0_1  ),
+.CAP0_6  (CAP0_6  ),
+.CAP0_7  (CAP0_7  ),
 .CAP0_10 (CAP0_10 ),
 .CAP0_11 (CAP0_11 )
 )

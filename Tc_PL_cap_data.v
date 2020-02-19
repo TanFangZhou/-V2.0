@@ -23,12 +23,9 @@
 module Tc_PL_cap_data
 #(
 parameter CAP0_3  = 2   ,
-	        CAP0_4  = 8   ,
-	        CAP0_5  = 3   ,
 	        CAP0_6  = 14  ,
 	        CAP0_7  = 32  ,
 	        CAP0_8  = 32  ,
-	        CAP0_9  = 32  ,
 	        CAP0_10 = 18  ,
 	        CAP0_11 = 32  ,
           ADC0_1  = 56

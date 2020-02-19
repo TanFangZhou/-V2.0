@@ -27,77 +27,40 @@ input                    Gc_cap_trig      ,
 input                    Gc_cap_cmpt      ,
 input                    Ga_clk50         ,
 output                   Ga_cap_trig      ,
-output                   Ga_cap_cmpt      
+output                   Ga_cap_cmpt
     );
 
-wire Gc_cap_trig0;
-Tplusadd
+localparam VAL_DEL = 10 ,
+           VAL_DEB = 3  ;
+
+Tpluscross
 #(
-.VAL_CNT(10)
+.VAL_DEL (VAL_DEL),
+.VAL_DEB (VAL_DEB)
 )
-Tplusadd_trig
+Tpluscross_trig
 (
-.clk        (Gc_clk125),
-.rst        (Gc_rst   ),
-.signal_in  (Gc_cap_trig),
-.signal_out (Gc_cap_trig0)
+.in_clk        (Gc_clk125    ),
+.in_rst        (Gc_rst       ),
+.in_signal     (Gc_cap_trig  ),
+.out_clk       (Ga_clk50     ),
+.out_rst       (Gc_rst       ),
+.out_signal    (Ga_cap_trig  )
     );
 
-wire Gc_cap_trig1;
-Tdebounce
+Tpluscross
 #(
-.VAL_CNT(3)
+.VAL_DEL (VAL_DEL),
+.VAL_DEB (VAL_DEB)
 )
-Tdebounce_trig
+Tpluscross_cmpt
 (
-.clk        (Ga_clk50),
-.rst        (Gc_rst  ),
-.signal_in  (Gc_cap_trig0),
-.signal_out (Gc_cap_trig1)
+.in_clk        (Gc_clk125    ),
+.in_rst        (Gc_rst       ),
+.in_signal     (Gc_cap_cmpt  ),
+.out_clk       (Ga_clk50     ),
+.out_rst       (Gc_rst       ),
+.out_signal    (Ga_cap_cmpt  )
     );
-
-Tposedge
-Tposedge_trig
-(
-.clk        (Ga_clk50),
-.rst        (Gc_rst  ),
-.signal_in  (Gc_cap_trig1),
-.signal_out (Ga_cap_trig)
-    );
-
-wire Gc_cap_cmpt0,Gc_cap_cmpt1;
-Tplusadd
-#(
-.VAL_CNT(10)
-)
-Tplusadd_cmpt
-(
-.clk        (Gc_clk125),
-.rst        (Gc_rst   ),
-.signal_in  (Gc_cap_cmpt),
-.signal_out (Gc_cap_cmpt0)
-    );
-
-Tdebounce
-#(
-.VAL_CNT(3)
-)
-Tdebounce_cmpt
-(
-.clk        (Ga_clk50),
-.rst        (Gc_rst  ),
-.signal_in  (Gc_cap_cmpt0),
-.signal_out (Gc_cap_cmpt1)
-    );
-
-Tposedge
-Tposedge_cmpt
-(
-.clk        (Ga_clk50),
-.rst        (Gc_rst  ),
-.signal_in  (Gc_cap_cmpt1),
-.signal_out (Ga_cap_cmpt)
-    );
-
 
 endmodule

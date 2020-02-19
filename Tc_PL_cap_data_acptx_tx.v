@@ -23,7 +23,6 @@
 module Tc_PL_cap_data_acptx_tx
 #(
 parameter CAP0_7  = 32  ,
-	        CAP0_8  = 32  ,
           CAP0_15 = 128
 )(
 input                     clk                  ,

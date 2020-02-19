@@ -91,7 +91,7 @@ always@(posedge clk)begin
 		if(Gc_mereg_datr)begin
 			points_cnt <= points_cnt + 1;
 		end
-		if(points_cnt==(cap_points-1))begin
+		if(Gc_mereg_datr&(points_cnt==(cap_points-2)))begin
 			point_last <= 1;
 		end
 	end

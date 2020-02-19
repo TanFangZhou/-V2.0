@@ -54,89 +54,38 @@ output                   Ga_com_close     ,
 input     [TOP0_0-1:0]   Ga_wdis
     );
 
-reg t_Gc_com_open   =0;
-reg t_Gc_com_close  =0;
-reg t_Ga_com_open   =0;
-reg t_Ga_com_close  =0;
+localparam VAL_DEL = 4  ,
+           VAL_DEB = 3  ;
 
-reg[1:0] Gc_delcnt_open =0;
-reg[1:0] Gc_delcnt_close=0;
-always@(posedge Gc_clk125)begin
-	if(Gc_rst)begin
-		t_Gc_com_open   <= 0;
-		Gc_delcnt_open  <= 0;
-		t_Gc_com_close  <= 0;
-		Gc_delcnt_close <= 0;
-	end else begin
-		if(Gc_com_open)begin
-			t_Gc_com_open <= 1;
-		end else if(&Gc_delcnt_open)begin
-			t_Gc_com_open <= 0;
-		end
-		if(t_Gc_com_open)begin
-			Gc_delcnt_open <= Gc_delcnt_open + 1;
-		end else begin
-			Gc_delcnt_open <= 0;
-		end
-		if(Gc_com_close)begin
-			t_Gc_com_close <= 1;
-		end else if(&Gc_delcnt_close)begin
-			t_Gc_com_close <= 0;
-		end
-		if(t_Gc_com_close)begin
-			Gc_delcnt_close <= Gc_delcnt_close + 1;
-		end else begin
-			Gc_delcnt_close <= 0;
-		end
-	end
-end
+Tpluscross
+#(
+.VAL_DEL (VAL_DEL ),
+.VAL_DEB (VAL_DEB )
+)
+Tpluscross_com_open
+(
+.in_clk        (Gc_clk125   ),
+.in_rst        (Gc_rst      ),
+.in_signal     (Gc_com_open ),
+.out_clk       (Ga_clk200   ),
+.out_rst       (Gc_rst      ),
+.out_signal    (Ga_com_open )
+    );
 
-reg[1:0] cnt_Ga_open   =0;
-reg[1:0] cnt_Ga_close  =0;
-always@(posedge Ga_clk200)begin
-	if(t_Gc_com_open)begin
-		if(!cnt_Ga_open[1])begin
-			cnt_Ga_open <= cnt_Ga_open + 1;
-		end
-	end else begin
-		cnt_Ga_open <= 0;
-	end
-	if(t_Gc_com_close)begin
-		if(!cnt_Ga_close[1])begin
-			cnt_Ga_close <= cnt_Ga_close + 1;
-		end
-	end else begin
-		cnt_Ga_close <= 0;
-	end
-end
-
-reg      f_Ga_open_v =0;
-reg      f_Ga_close_v=0;
-always@(posedge Ga_clk200)begin
-	if(cnt_Ga_open[1])begin
-		f_Ga_open_v <= 1;
-	end else begin
-		f_Ga_open_v <= 0;
-	end
-	if(cnt_Ga_close[1])begin
-		f_Ga_close_v <= 1;
-	end else begin
-		f_Ga_close_v <= 0;
-	end
-end
-
-always@(posedge Ga_clk200)begin
-	if(cnt_Ga_open[1]&(!f_Ga_open_v))begin
-		t_Ga_com_open <= 1;
-	end else begin
-		t_Ga_com_open <= 0;
-	end
-	if(cnt_Ga_close[1]&(!f_Ga_close_v))begin
-		t_Ga_com_close <= 1;
-	end else begin
-		t_Ga_com_close <= 0;
-	end
-end
+Tpluscross
+#(
+.VAL_DEL (VAL_DEL ),
+.VAL_DEB (VAL_DEB )
+)
+Tpluscross_com_close
+(
+.in_clk        (Gc_clk125   ),
+.in_rst        (Gc_rst      ),
+.in_signal     (Gc_com_close ),
+.out_clk       (Ga_clk200   ),
+.out_rst       (Gc_rst      ),
+.out_signal    (Ga_com_close )
+    );
 
 assign Gc_cap_mode  = Ga_cap_mode   ;
 assign Gc_cap_wdis  = Ga_cap_wdis   ;
@@ -144,7 +93,5 @@ assign Gc_cap_plus  = Ga_cap_plus   ;
 assign Gc_com_wdis  = Ga_com_wdis   ;
 assign Gc_com_plus  = Ga_com_plus   ;
 assign Gc_wdis      = Ga_wdis       ;
-assign Ga_com_open  = t_Ga_com_open ;
-assign Ga_com_close = t_Ga_com_close;
 
 endmodule

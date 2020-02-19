@@ -229,8 +229,8 @@ always@(posedge clk125)begin
 end
 
 assign cap_irq_en       = t_gp0_c2 ;
-assign cap_gain_number  = t_gp0_c3 ;
-assign cap_phase_number = t_gp0_c4 ;
+assign cap_gain_number  = t_gp0_c3 -1;
+assign cap_phase_number = t_gp0_c4 -1;
 assign cap_gain_del     = t_gp0_c5 ;
 assign cap_ld_plus      = t_gp0_c6 ;
 assign cap_ld_wdis      = t_gp0_c7 ;

@@ -49,7 +49,6 @@ wire            crc0_data_valid ;
 Tc_PL_cap_data_acptx_tx
 #(
 .CAP0_7  (CAP0_7  ),
-.CAP0_8  (CAP0_8  ),
 .CAP0_15 (CAP0_15 )
 )
 Tc_PL_cap_data_acptx_tx_ins0

@@ -41,7 +41,7 @@ always@(posedge clk125)begin
 	end else begin
 		if(cap_cmpt)begin
 			cap_state_cmpt <= 1;
-		end else if(gp0_c0w)begin
+		end else if(gp0_c0w|cap_trig)begin
 			cap_state_cmpt <= 0;
 		end
 	end
