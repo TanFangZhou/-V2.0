@@ -85,7 +85,7 @@ localparam S1_IDLE = 0,
            S1_REST = 1,
            S1_RDEL = 2,
            S1_CMPT = 3;
-reg            state1      = S1_IDLE;
+reg[1:0]       state1      = S1_IDLE;
 reg            t_mem_reset = 0      ;
 reg[MSB_DEL:0] rdel_cnt    = 0      ;
 always@(posedge clk50)begin

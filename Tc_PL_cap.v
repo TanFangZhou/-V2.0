@@ -324,7 +324,7 @@ Tc_PL_cap_gain
 )
 Tc_PL_cap_gain_ins0
 (
-.clk125           (clk125           ),
+.clk             (clk125           ),
 .rst              (rst              ),
 .gain_value       (ctl_gain_value       ),
 .gain_en          (ctl_gain_en          ),
@@ -383,13 +383,13 @@ Tc_PL_cap_data
 )
 Tc_PL_cap_data_ins0
 (
-.clk125             (clk125             ),
+.clk                (clk125             ),
 .rst                (rst                ),
 .data_en            (ctl_data_en            ),
 .data_cmpt          (ctl_data_cmpt          ),
 .cap_phase_number   (Ps_cap_phase_number   ),
 .cap_points         (Ps_cap_points         ),
-.cap_addr           (cap_gain_addr         ),
+.cap_gain_addr           (cap_gain_addr         ),
 .cap_crc_en         (Ps_cap_cing           ),
 .cap_crc32          (Ps_cap_crc32          ),
 .cap_gain_cycle     (cap_gain_cycle        ),

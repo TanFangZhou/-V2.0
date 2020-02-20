@@ -87,11 +87,11 @@ Tpluscross_com_close
 .out_signal    (Ga_com_close )
     );
 
-assign Gc_cap_mode  = Ga_cap_mode   ;
-assign Gc_cap_wdis  = Ga_cap_wdis   ;
-assign Gc_cap_plus  = Ga_cap_plus   ;
-assign Gc_com_wdis  = Ga_com_wdis   ;
-assign Gc_com_plus  = Ga_com_plus   ;
+assign Ga_cap_mode  = Gc_cap_mode   ;
+assign Ga_cap_wdis  = Gc_cap_wdis   ;
+assign Ga_cap_plus  = Gc_cap_plus   ;
+assign Ga_com_wdis  = Gc_com_wdis   ;
+assign Ga_com_plus  = Gc_com_plus   ;
 assign Gc_wdis      = Ga_wdis       ;
 
 endmodule

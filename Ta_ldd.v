@@ -56,7 +56,7 @@ Ta_ldd_com_ins0
 .com_plus   (com_plus   ),
 .com_open   (com_open   ),
 .com_close  (com_close  ),
-.wdis       (com_wdis   )
+.wdis       (com_wdis_t   )
     );
 
 wire             cap_rst   ;
@@ -74,7 +74,7 @@ Ta_ldd_cap_ins0
 .cap_plus  (cap_plus  ),
 .cap_trig  (cap_trig  ),
 .capr_rdy  (capr_rdy  ),
-.wdis      (cap_wdis  )
+.wdis      (cap_wdis_t  )
     );
 
 Ta_ldd_out
@@ -86,8 +86,8 @@ Ta_ldd_out_ins0
 .clk200    (clk200     ),
 .rst       (rst        ),
 .cap_mode  (cap_mode   ),
-.cap_wdis  (cap_wdis   ),
-.com_wdis  (com_wdis   ),
+.cap_wdis  (cap_wdis_t   ),
+.com_wdis  (com_wdis_t   ),
 .wdis_out  (wdis_out   ),
 .LDD0_WP   (LDD0_WP    ),
 .LDD0_WN   (LDD0_WN    )

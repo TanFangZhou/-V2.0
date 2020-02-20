@@ -195,7 +195,7 @@ Tc_PL_bus_csn_ins0
 (
 .clk             (clk             ),
 .rst             (rst             ),
-.chip_sel        (chip_sel        ),
+.chip_sel        (csn_chip_sel        ),
 .spi_CSN         (spi_CSN         ),
 .spi_SCLK        (spi_SCLK        ),
 .spi_MOSI        (spi_MOSI        ),

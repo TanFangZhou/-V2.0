@@ -56,7 +56,7 @@ output                    LDD0_RDISN
     );
 
 wire LDD0_RDIS;
-assign {LDD0_OSCEA,LDD0_DISEA,LDD0_RDIS,LDD0_OLD2N} = gp0_d0;
+assign {LDD0_OSCEA,LDD0_DISEA,LDD0_RDIS,LDD0_OLD2N,LDD0_OUTEA} = gp0_d0;
 assign LDD0_RDISN = !LDD0_RDIS;
 
 wire opened=|Gc_wdis;

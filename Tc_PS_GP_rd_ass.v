@@ -23,8 +23,8 @@
 module Tc_PS_GP_rd_ass(
 input                 clk            ,
 input                 rst            ,
-output                rden           ,
-output      [31:0]    addr           ,
+input                 rden           ,
+input       [31:0]    addr           ,
 output                gp0_b4r
     );
 

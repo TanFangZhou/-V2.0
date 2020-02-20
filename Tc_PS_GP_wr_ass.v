@@ -36,6 +36,7 @@ localparam WTH_ADDR = 32,
            WTH_ADDH = WTH_ADDR-WTH_ADDL;
 wire[WTH_ADDH-1:0] addr_H;
 wire[WTH_ADDL-1:0] addr_L;
+assign {addr_H,addr_L} = addr;
 
 localparam ADDH_GLABOL  = 0,
            ADDH_CAPTURE = 1,

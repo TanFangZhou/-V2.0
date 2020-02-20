@@ -28,6 +28,8 @@ output     clk200 ,
 output     rsto
     );
 
+reg t_rsto=0;
+
 wire clk_out1 ;
 wire clk_out2 ;
 wire reset    ;
@@ -54,7 +56,6 @@ always@(posedge clk125)begin
 	end
 end
 
-reg t_rsto=0;
 always@(posedge clk125)begin
 	if(!locked)begin
 		t_rsto <= 1;
@@ -65,6 +66,7 @@ always@(posedge clk125)begin
 	end
 end
 
+assign rsto     = t_rsto   ;
 assign clk125   = clk_out1 ;
 assign clk200   = clk_out2 ;
 assign reset    = rsti     ;
